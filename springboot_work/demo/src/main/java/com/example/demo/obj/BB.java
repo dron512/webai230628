@@ -1,2 +1,4 @@
-package com.example.demo.obj;public class BB {
+package com.example.demo.obj;
+
+public class BB {
 }
