@@ -1,0 +1,15 @@
+스프링은 객체 담는 통이있다
+@Component
+@Autowird
+
+@RestController
+@Getmapping
+
+# 모든 파일을 무대(스테이지)에 올리겠다
+git add .
+
+# asdf 문자로 승인하겠다 
+git commit -m "asdf"
+
+# main 브렌치로 서버에 올리겠다
+git push origin main
