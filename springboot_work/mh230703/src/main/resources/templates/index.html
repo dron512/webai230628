@@ -10,18 +10,26 @@
         *{
             font-family: 'Archivo Black','Noto Sans KR', sans-serif;
         }
-        div>div{
-            display:inline-block;
-            width:380px;
-        }
     </style>
+    <script>
+        window.onload = function(){
+            document.getElementById('btn').onclick = ()=>{
+                if ( document.getElementById('showhide').style.display == 'none')
+                    document.getElementById('showhide').style.display = 'block';
+                else
+                    document.getElementById('showhide').style.display = 'none';
+            }
+        }
+    </script>
 </head>
 <body>
+    <button id="btn">버튼</button>
+    <div id="showhide"><h1>보여주기 안보여주기</h1></div>
     <div style="background-color:#ff39ff">
         <h1>index</h1>
     </div>
-    <div style="width:800px; margin:0 auto;">
-        <div>
+    <div style="width:800px; margin:0 auto;display:flex;">
+        <div style="width:380px">
             <h1>people테이블내용</h1>
             <table style="border:1px solid #ff39ff">
                 <thead>
@@ -36,7 +44,7 @@
                 </tbody>
             </table>
         </div>
-        <div>
+        <div style="width:380px">
         <h1>products테이블내용</h1>
         <table style="border:1px solid #ff39ff">
             <thead>
@@ -55,6 +63,51 @@
             </tbody>
         </table>
     </div>
+    </div>
+    <div class="container" style="background-color:#ff39ff">
+        <h1>글목록입니다</h1>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            글쓰기
+        </button>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form method="post" action="/post">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">글쓰기</h1>
+                            <button type="button" class="btn-close"
+                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-group">
+                                <span class="input-group-text">With textarea</span>
+                                <textarea
+                                    name="content"
+                                    class="form-control"
+                                    aria-label="With textarea"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h3>1 of 3</h3>
+            </div>
+            <div class="col">
+                <h3>2 of 3</h3>
+            </div>
+            <div class="col">
+                <h3>3 of 3</h3>
+            </div>
+        </div>
     </div>
 </body>
 </html>

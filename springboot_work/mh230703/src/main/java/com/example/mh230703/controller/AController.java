@@ -1,11 +1,14 @@
 package com.example.mh230703.controller;
 
+import com.example.mh230703.dao.PostsRepository;
 import com.example.mh230703.dto.People;
 import com.example.mh230703.dto.Product;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -18,6 +21,9 @@ public class AController {
 
     @Autowired
     DataSource ds;
+
+    @Autowired
+    PostsRepository postsRepository;
 
     @GetMapping("/")
     public String index(Model model){
@@ -52,6 +58,15 @@ public class AController {
         }
         model.addAttribute("al",al);
         model.addAttribute("products",products);
+        return "index";
+    }
+
+    @PostMapping("/post")
+    public String post(String content, HttpServletRequest request){
+//        String request.getParameter("content")
+        System.out.println("일로오나");
+        System.out.println(content);
+        postsRepository.doInsert(content);
         return "index";
     }
 }
