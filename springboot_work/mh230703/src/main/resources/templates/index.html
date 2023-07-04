@@ -10,26 +10,51 @@
         *{
             font-family: 'Archivo Black','Noto Sans KR', sans-serif;
         }
+        div>div{
+            display:inline-block;
+            width:380px;
+        }
     </style>
 </head>
 <body>
     <div style="background-color:#ff39ff">
         <h1>index</h1>
     </div>
-    <div>
-        <h1>people테이블내용</h1>
+    <div style="width:800px; margin:0 auto;">
+        <div>
+            <h1>people테이블내용</h1>
+            <table style="border:1px solid #ff39ff">
+                <thead>
+                    <th>이름</th>
+                    <th>나이</th>
+                </thead>
+                <tbody>
+                    <tr th:each="p : ${al}">
+                        <td th:text="${p.name}"></td>
+                        <td th:text="${p.age}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+        <h1>products테이블내용</h1>
         <table style="border:1px solid #ff39ff">
             <thead>
+                <th>순번</th>
                 <th>이름</th>
-                <th>나이</th>
+                <th>가격</th>
+                <th>수량</th>
             </thead>
             <tbody>
-                <tr th:each="p : ${al}">
+                <tr th:each="p : ${products}">
+                    <td th:text="${p.idx}"></td>
                     <td th:text="${p.name}"></td>
-                    <td th:text="${p.age}"></td>
+                    <td th:text="${p.price}"></td>
+                    <td th:text="${p.quantity}"></td>
                 </tr>
             </tbody>
         </table>
+    </div>
     </div>
 </body>
 </html>
