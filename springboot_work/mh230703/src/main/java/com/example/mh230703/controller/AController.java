@@ -1,6 +1,8 @@
 package com.example.mh230703.controller;
 
+import com.example.mh230703.dao.PeopleRepository;
 import com.example.mh230703.dao.PostsRepository;
+import com.example.mh230703.dao.ProductsRepository;
 import com.example.mh230703.dto.People;
 import com.example.mh230703.dto.Product;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,11 +32,17 @@ public class AController {
     PostsRepository postsRepository;
 
     @Autowired
+    ProductsRepository productsRepository;
+
+    @Autowired
+    PeopleRepository peopleRepository;
+
+    @Autowired
     SqlSession sqlSession;
 
     @GetMapping("/")
     public String index(Model model) throws IOException {
-        System.out.println(sqlSession.selectList("product.select"));
+/*
         ArrayList<People> al = new ArrayList<>();
         ArrayList<Product> products = new ArrayList<>();
         Connection conn = null;
@@ -64,8 +72,9 @@ public class AController {
         }finally {
             if(conn != null ) try{ conn.close(); }catch (Exception e){}
         }
-        model.addAttribute("al",al);
-        model.addAttribute("products",products);
+ */
+        model.addAttribute("al",peopleRepository.doSelect());
+        model.addAttribute("products",productsRepository.doSelect());
         model.addAttribute("posts",postsRepository.doSelect());
         return "index";
     }
