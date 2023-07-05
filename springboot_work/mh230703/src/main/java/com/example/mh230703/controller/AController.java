@@ -4,6 +4,9 @@ import com.example.mh230703.dao.PostsRepository;
 import com.example.mh230703.dto.People;
 import com.example.mh230703.dto.Product;
 import jakarta.servlet.http.HttpServletRequest;
+import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.context.ApplicationContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.sql.DataSource;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,8 +29,12 @@ public class AController {
     @Autowired
     PostsRepository postsRepository;
 
+    @Autowired
+    SqlSession sqlSession;
+
     @GetMapping("/")
-    public String index(Model model){
+    public String index(Model model) throws IOException {
+        System.out.println(sqlSession.selectList("product.select"));
         ArrayList<People> al = new ArrayList<>();
         ArrayList<Product> products = new ArrayList<>();
         Connection conn = null;
@@ -58,6 +66,7 @@ public class AController {
         }
         model.addAttribute("al",al);
         model.addAttribute("products",products);
+        model.addAttribute("posts",postsRepository.doSelect());
         return "index";
     }
 
@@ -67,6 +76,6 @@ public class AController {
         System.out.println("일로오나");
         System.out.println(content);
         postsRepository.doInsert(content);
-        return "index";
+        return "redirect:/";
     }
 }
