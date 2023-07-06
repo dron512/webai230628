@@ -17,4 +17,12 @@ public class ProductsRepository {
         return sqlSession.selectList("product.select");
     }
 
+    public void doInsert(Product product) {
+        sqlSession.insert("product.insert",product);
+    }
+
+    public Product doSelectRow(Product product){
+        return sqlSession.selectOne("product.selectrow",product);
+    }
+
 }

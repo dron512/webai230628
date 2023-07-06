@@ -10,6 +10,16 @@
         *{
             font-family: 'Archivo Black','Noto Sans KR', sans-serif;
         }
+        a{
+            color:black;
+            text-decoration: none;
+        }
+        .ahref{
+            cursor:pointer;
+        }
+        .ahref:hover{
+            background-color:#ff33ff;
+        }
     </style>
     <script>
         window.onload = function(){
@@ -20,6 +30,11 @@
                     document.getElementById('showhide').style.display = 'none';
             }
         }
+        /*
+        function doProductView(){
+            alert('test');
+        }
+        */
     </script>
 </head>
 <body>
@@ -61,11 +76,14 @@
                             </div>
                             <div class="modal-body">
                                 <div class="input-group">
-                                    <span class="input-group-text">With textarea</span>
-                                    <textarea
-                                            name="content"
-                                            class="form-control"
-                                            aria-label="With textarea"></textarea>
+                                    <span class="input-group-text">name</span>
+                                    <input name="name" class="form-control"/>
+                                    <span class="input-group-text">price</span>
+                                    <input name="price"
+                                           class="form-control" type="number"/>
+                                    <span class="input-group-text">quantity</span>
+                                    <input name="quantity" type="number"
+                                           class="form-control" />
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -86,7 +104,9 @@
                 <tbody>
                     <tr th:each="p : ${products}">
                         <td th:text="${p.idx}"></td>
-                        <td th:text="${p.name}"></td>
+                        <td class="ahref">
+                            <a th:href="@{/product/view(idx=${p.idx})}" th:text="${p.name}"></a>
+                        </td>
                         <td th:text="${p.price}"></td>
                         <td th:text="${p.quantity}"></td>
                     </tr>
@@ -94,7 +114,7 @@
             </table>
         </div>
     </div>
-    <div class="container" style="background-color:#ff39ff">
+    <div class="container m-3 p-3" style="background-color:#ffbbff">
         <h1>글목록입니다</h1>
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">

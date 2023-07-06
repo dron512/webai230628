@@ -12,4 +12,9 @@
         VALUES
         (#{name}, #{price}, #{quantity});
     </insert>
+    <select id="selectrow" parameterType="com.example.mh230703.dto.Product"
+            resultType="com.example.mh230703.dto.Product">
+        select * from products
+        where idx=#{idx}
+    </select>
 </mapper>
