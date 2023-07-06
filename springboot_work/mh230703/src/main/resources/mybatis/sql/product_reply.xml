@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="product_reply">
+    <select id="select" resultType="com.example.mh230703.dto.Product_reply">
+        select * from products
+    </select>
+    <insert id="insert" parameterType="com.example.mh230703.dto.Product_reply">
+        INSERT INTO products_reply
+        (idx_products, ref_idx_reply, ref_level, content)
+        VALUES
+        (#{idx_products}, #{ref_idx_reply}, #{ref_level}, #{content});
+    </insert>
+    <select id="selectrow" parameterType="com.example.mh230703.dto.Product_reply"
+            resultType="com.example.mh230703.dto.Product_reply">
+        select * from products
+        where idx=#{idx}
+    </select>
+</mapper>
