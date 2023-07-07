@@ -14,8 +14,8 @@ public class ProductsReplyRepository {
     @Autowired
     SqlSession sqlSession;
 
-    public List<Product_reply> doSelect(){
-        return sqlSession.selectList("product_reply.select");
+    public List<Product_reply> doSelect(Product_reply product_reply){
+        return sqlSession.selectList("product_reply.select",product_reply);
     }
 
     public void doInsert(Product_reply product_reply) {

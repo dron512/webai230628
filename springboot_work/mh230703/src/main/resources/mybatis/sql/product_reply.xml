@@ -3,8 +3,24 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="product_reply">
-    <select id="select" resultType="com.example.mh230703.dto.Product_reply">
-        select * from products
+    <select id="select" resultType="com.example.mh230703.dto.Product_reply"
+        parameterType="com.example.mh230703.dto.Product_reply">
+        WITH RECURSIVE CTE AS (
+            SELECT idx_reply, idx_products,
+                ref_idx_reply, ref_level, content,
+                convert(idx_reply, CHAR) AS path FROM products_reply
+            WHERE idx_products = #{idx_products}
+                AND ref_idx_reply = 0
+            UNION ALL
+            SELECT uc.idx_reply, uc.idx_products,
+                uc.ref_idx_reply, uc.ref_level, uc.content,
+                concat(CTE.idx_reply,'-',uc.idx_reply) AS path FROM products_reply uc
+            INNER JOIN CTE ON uc.ref_idx_reply = CTE.idx_reply
+                WHERE uc.idx_products = #{idx_products}
+        )
+        SELECT * FROM CTE
+        ORDER BY convert(SUBSTRING_INDEX(PATH,'-',1), UNSIGNED) ASC, idx_reply ASC,
+        CONVERT(SUBSTRING_INDEX(PATH,'-',2), UNSIGNED) ASC, idx_reply ASC;
     </select>
     <insert id="insert" parameterType="com.example.mh230703.dto.Product_reply">
         INSERT INTO products_reply

@@ -78,6 +78,18 @@
             </tbody>
         </table>
         <div>
+            <div th:each="product_reply:${product_reply_list}">
+                <div>
+                    <span th:each="num : ${#numbers.sequence(1,product_reply.ref_level)}">
+<!--                        반복되나 [[${num}]]-->
+                        <span th:if="${num != product_reply.ref_level }" style="margin-right:1rem"></span>
+                        <span th:if="${num == product_reply.ref_level }">👱‍♂️👉</span>
+                    </span>
+                    <span th:text="${product_reply.content}"></span>
+                </div>
+            </div>
+        </div>
+        <div>
             <div class="m-3">
                 <div class="m-3">
                     <h1 class="" id="productModalLabel">댓글쓰기</h1>
