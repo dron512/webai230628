@@ -41,8 +41,10 @@
                             ref_level: 1,
                             content: $('#content').val(),
                         },
-                        success:function(){
+                        success:function(result){
                             console.log("success");
+                            location.reload();
+                            //$('h1').append('<div>추가됩니다.</div>');
                         },
                         error:function(e){
                             console.log("error"+e);
@@ -59,7 +61,7 @@
     <a class="btn btn-primary m-1" th:href="@{/}">Index</a>
 </div>
 <div style="width:800px; margin:0 auto;display:flex;">
-    <div style="width:380px">
+    <div>
         <h1>products테이블내용</h1>
         <table style="border:1px solid #ff39ff">
             <thead>
@@ -79,13 +81,44 @@
         </table>
         <div>
             <div th:each="product_reply:${product_reply_list}">
-                <div>
+                <div class="m-3">
                     <span th:each="num : ${#numbers.sequence(1,product_reply.ref_level)}">
 <!--                        반복되나 [[${num}]]-->
                         <span th:if="${num != product_reply.ref_level }" style="margin-right:1rem"></span>
                         <span th:if="${num == product_reply.ref_level }">👱‍♂️👉</span>
                     </span>
                     <span th:text="${product_reply.content}"></span>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        글쓰기
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form method="post" action="/post">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">글쓰기</h1>
+                                        <button type="button" class="btn-close"
+                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="input-group">
+                                            <span class="input-group-text">With textarea</span>
+                                            <input type="hidden" name="ref_level" th:value="${product_reply.ref_level}">
+                                            <textarea
+                                                    name="content"
+                                                    class="form-control"
+                                                    aria-label="With textarea"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
