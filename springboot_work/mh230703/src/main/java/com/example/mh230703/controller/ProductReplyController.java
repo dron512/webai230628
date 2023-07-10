@@ -27,6 +27,16 @@ public class ProductReplyController {
         return "test";
     }
 
+    @PostMapping("insert")
+//    @ResponseBody
+    public String pinsert(Product_reply product_reply){
+        System.out.println(product_reply);
+        product_reply.setRef_idx_reply(product_reply.getIdx_reply());
+        product_reply.setRef_level(product_reply.getRef_level()+1);
+        productsReplyRepository.doInsert(product_reply);
+        return "redirect:/product/view?idx="+product_reply.getIdx_products();
+    }
+
     @GetMapping("view")
     public String view(Model model,Product product){
 //        Product dbProduct = productsRepository.doSelectRow(product);

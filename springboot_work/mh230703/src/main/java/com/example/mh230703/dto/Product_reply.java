@@ -9,6 +9,7 @@ import lombok.*;
 @Builder
 @ToString
 public class Product_reply {
+    private int idx_reply;
     private int idx_products;
     private int ref_idx_reply;
     private int ref_level;
