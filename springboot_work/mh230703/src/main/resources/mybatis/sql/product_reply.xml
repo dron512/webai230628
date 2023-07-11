@@ -8,13 +8,13 @@
         WITH RECURSIVE CTE AS (
             SELECT idx_reply, idx_products,
                 ref_idx_reply, ref_level, content,
-                convert(idx_reply, CHAR) AS path FROM products_reply
+                convert(idx_reply, CHAR(255)) AS path FROM products_reply
             WHERE idx_products = #{idx_products}
                 AND ref_idx_reply = 0
             UNION ALL
             SELECT uc.idx_reply, uc.idx_products,
                 uc.ref_idx_reply, uc.ref_level, uc.content,
-                concat(CTE.idx_reply,'-',uc.idx_reply) AS path FROM products_reply uc
+                convert(CONCAT(CTE.path,'-',uc.idx_reply),CHAR(255)) AS path FROM products_reply uc
             INNER JOIN CTE ON uc.ref_idx_reply = CTE.idx_reply
                 WHERE uc.idx_products = #{idx_products}
         )

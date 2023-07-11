@@ -21,6 +21,9 @@ public class ProductsReplyRepository {
     public void doInsert(Product_reply product_reply) {
         sqlSession.insert("product_reply.insert", product_reply);
     }
+    public void doPInsert(Product_reply product_reply) {
+        sqlSession.insert("product_reply.pinsert", product_reply);
+    }
 
     public Product_reply doSelectRow(Product_reply product_reply){
         return sqlSession.selectOne("product_reply.selectrow", product_reply);
