@@ -92,6 +92,11 @@
                             </div>
                         </div>
                     </div>
+                    <button type="button" class="btn btn-primary"
+                            th:attrappend="idx_reply=${product_reply.idx_reply}"
+                            onclick="doDelete(this);">
+                        삭제
+                    </button>
                 </div>
             </div>
         </div>
@@ -154,4 +159,21 @@
             }
         );
     });
+    function doDelete(obj){
+        const idx_reply = $(obj).attr('idx_reply');
+        $.ajax( {
+            url:"/products_reply/delete",
+            data : { idx_reply },
+            type:"post",
+            //dataType: 'json',
+            async: true,
+            success:function(result){
+                console.log(result);
+                location.reload();
+            },
+            error:function(err){
+                console.log(err);
+            }
+        } );
+    }
 </script>

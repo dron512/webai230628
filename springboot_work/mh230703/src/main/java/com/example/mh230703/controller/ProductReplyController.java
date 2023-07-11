@@ -43,5 +43,12 @@ public class ProductReplyController {
 //        model.addAttribute("product",dbProduct);
         return "product/view";
     }
+    
+    @PostMapping("delete")
+    @ResponseBody
+    public String delete(Product_reply product_reply){
+        productsReplyRepository.doDelete(product_reply);
+        return "문자날아감";
+    }
 
 }

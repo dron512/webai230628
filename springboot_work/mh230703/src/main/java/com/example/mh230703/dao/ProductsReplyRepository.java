@@ -29,4 +29,7 @@ public class ProductsReplyRepository {
         return sqlSession.selectOne("product_reply.selectrow", product_reply);
     }
 
+    public void doDelete(Product_reply product_reply) {
+        sqlSession.delete("product_reply.delete", product_reply);
+    }
 }
