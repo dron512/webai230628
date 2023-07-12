@@ -34,7 +34,6 @@
         where idx=#{idx}
     </select>
     <delete id="delete" parameterType="com.example.mh230703.dto.Product_reply">
-        delete from products_reply
-        where idx_reply = #{idx_reply}
+        SELECT performUpdateOrDelete(#{idx_reply}, '삭제되었습니다.');
     </delete>
 </mapper>
