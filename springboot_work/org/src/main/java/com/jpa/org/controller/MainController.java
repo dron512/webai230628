@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.List;
+
 @Controller
 public class MainController {
 
@@ -18,7 +20,10 @@ public class MainController {
                 .name("홍길동")
                 .content("내요내욘ㅇ")
                 .build();
+
         freeBoardRepository.save(f1);
+        List<FreeBoard> list = freeBoardRepository.findAll();
+        System.out.println(list);
         return "index";
     }
 }
