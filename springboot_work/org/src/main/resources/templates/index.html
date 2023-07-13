@@ -1,15 +1,84 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
-                xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-                layout:decorate="~{layouts/default_layout}">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default_layout}">
+<head>
+  <title>index</title>
+</head>
 <th:block layout:fragment="css">
-    <link rel="stylesheet" th:href="@{css/style.css}">
+  <style>
+  </style>
 </th:block>
 <th:block layout:fragment="script">
-    <script th:src="@{js/myjs.js}"></script>
+  <script>
+  </script>
 </th:block>
 
 <th:block layout:fragment="content">
-    <h1>Index</h1>
+  <div class="container">
+    <div class="row m-3">
+      <div class="col-2"></div>
+      <div class="col-8" style="overflow:hidden; height:400px;">
+        <div id="carouselExample" class="carousel slide">
+          <div class="carousel-inner rounded">
+            <div class="carousel-item active" style="height:400px;">
+              <img th:src="@{images/cat1.jpg}" class="d-block w-100" alt="cat image">
+            </div>
+            <div class="carousel-item" style="height:400px;">
+              <img th:src="@{images/cat2.jpg}" class="d-block w-100" alt="cat image">
+            </div>
+            <div class="carousel-item" style="height:400px;">
+              <img th:src="@{images/cat3.jpg}" class="d-block w-100" alt="cat image">
+            </div>
+            <div class="carousel-item" style="height:400px;">
+              <img th:src="@{images/cat4.jpg}" class="d-block w-100" alt="cat image">
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+      <div class="col-2"></div>
+    </div>
+    <div class="row">
+      <div class="col-1"></div>
+      <div class="col-10 d-flex">
+        <div class="card m-3" style="width: 18rem;">
+          <img th:src="@{images/cat1.jpg}" class="card-img-top" alt="cat1">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+        <div class="card m-3" style="width: 18rem;">
+          <img th:src="@{images/cat2.jpg}" class="card-img-top" alt="cat2">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+        <div class="card m-3" style="width: 18rem;">
+          <img th:src="@{images/cat3.jpg}" class="card-img-top" alt="cat3">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-1"></div>
+    </div>
+  </div>
 </th:block>
 </html>
