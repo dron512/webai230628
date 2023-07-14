@@ -17,6 +17,24 @@
 <th:block layout:fragment="content">
   <div class="container">
     <h1>FreeBoard</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>순번</th>
+          <th>제목</th>
+          <th>작성자</th>
+          <th>작성일자</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="freeboarddto :${list}">
+          <td th:text="${freeboarddto.idx}"></td>
+          <td th:text="${freeboarddto.name}"></td>
+          <td th:text="${freeboarddto.title}"></td>
+          <td th:text="${#temporals.format(freeboarddto.createdDate,'yyyy-MM-dd HH:mm')}"></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </th:block>
 </html>
