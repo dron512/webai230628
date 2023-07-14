@@ -18,13 +18,11 @@ public class FreeBoardService {
     public List<FreeBoardDto> list() {
         Page<FreeBoard> pagelist = freeBoardRepository.findAll(
                                     PageRequest.of(0,5));
-//        List<FreeBoard> dblist = pagelist.stream().toList();
         List<FreeBoardDto> dtolist = new ArrayList<>();
         for( FreeBoard fb :pagelist){
             FreeBoardDto dto = FreeBoardDto.of(fb);
             dtolist.add(dto);
         }
-        System.out.println("dtolist = "+dtolist);
         return dtolist;
     }
 }

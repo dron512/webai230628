@@ -22,8 +22,6 @@ public class MainController {
                 .build();
 
         freeBoardRepository.save(f1);
-        List<FreeBoard> list = freeBoardRepository.findAll();
-        System.out.println(list);
         return "index";
     }
 }
