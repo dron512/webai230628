@@ -4,6 +4,8 @@ import com.jpa.org.entity.FreeBoard;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
@@ -17,8 +19,13 @@ public class FreeBoardDto {
 
     private int idx;
     private String name;
+
+//    @NotNull(message = "빈칸이면 안됩니다.")
+    @Size(min = 3,max = 30, message = "3이상")
     private String title;
+    @Size(min = 3,max = 30)
     private String content;
+
     private LocalDateTime createdDate;
 
     private static ModelMapper modelMapper = new ModelMapper();

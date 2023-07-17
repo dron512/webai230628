@@ -9,8 +9,6 @@ print(fruits.shape)
 # 0 0 0 -> 검정색
 # 255 255 255 -> 하얀색
 
-
-
 apple = fruits[0:100].reshape(-1,100*100)
 pineapple = fruits[100:200].reshape(-1,100*100)
 banana = fruits[200:300].reshape(-1,100*100)

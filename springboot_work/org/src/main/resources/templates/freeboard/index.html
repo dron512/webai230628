@@ -29,12 +29,15 @@
       <tbody>
         <tr th:each="freeboarddto :${list}">
           <td th:text="${freeboarddto.idx}"></td>
+          <td>
+            <a th:href="@{/FreeBoard/View(idx=${freeboarddto.idx})}" th:text="${freeboarddto.title}"></a>
+          </td>
           <td th:text="${freeboarddto.name}"></td>
-          <td th:text="${freeboarddto.title}"></td>
           <td th:text="${#temporals.format(freeboarddto.createdDate,'yyyy-MM-dd HH:mm')}"></td>
         </tr>
       </tbody>
     </table>
+    <a th:href="@{/FreeBoard/WriteForm}" class="btn btn-primary">글쓰기</a>
   </div>
 </th:block>
 </html>

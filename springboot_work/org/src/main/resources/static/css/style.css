@@ -3,3 +3,7 @@
 *{
     font-family: 'Archivo Black', 'Noto Sans KR', sans-serif;
 }
+
+a{
+    text-decoration :none;
+}
