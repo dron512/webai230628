@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-fruits = np.load('fruits_300.npy')
+fruits = np.load('../230717/fruits_300.npy')
 
 print(fruits.shape)
 
