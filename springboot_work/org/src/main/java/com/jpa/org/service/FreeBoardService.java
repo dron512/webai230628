@@ -36,8 +36,11 @@ public class FreeBoardService {
     }
 
     public boolean insert(FreeBoardDto dto) {
-        FreeBoard freeBoard = dto.createFreeBoard();
-        freeBoardRepository.save(freeBoard);
+        FreeBoard freeBoardEntity = freeBoardRepository.findById(dto.getIdx()).orElse(new FreeBoard());
+        freeBoardEntity.setContent(dto.getContent());
+        freeBoardEntity.setName(dto.getName());
+        freeBoardEntity.setTitle(dto.getTitle());
+        freeBoardRepository.save(freeBoardEntity);
         return true;
     }
 
