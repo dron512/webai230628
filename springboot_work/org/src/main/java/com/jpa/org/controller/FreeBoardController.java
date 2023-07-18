@@ -2,19 +2,18 @@ package com.jpa.org.controller;
 
 import com.jpa.org.dto.FreeBoardDto;
 import com.jpa.org.entity.FreeBoard;
+import com.jpa.org.repository.FreeBoardRepository;
 import com.jpa.org.service.FreeBoardService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,8 +24,23 @@ public class FreeBoardController {
     @Autowired
     FreeBoardService freeBoardService;
 
+    @Autowired
+    FreeBoardRepository freeBoardRepository;
+
+    @DeleteMapping("Delete")
+    public @ResponseBody String delete(FreeBoardDto freeBoardDto){
+        freeBoardRepository.deleteById(freeBoardDto.getIdx());
+        return "success";
+    }
+
     @GetMapping("View")
-    public String view(@ModelAttribute @Valid FreeBoardDto freeBoardDto,BindingResult bindingResult){
+    public String view(@ModelAttribute @Valid FreeBoardDto freeBoardDto,
+                       BindingResult bindingResult,
+                       Model model){
+        System.out.println("idx = "+freeBoardDto.getIdx());
+
+        FreeBoardDto dto = freeBoardService.getRow(freeBoardDto);
+        model.addAttribute("freeBoardDto",dto);
         return "freeboard/view";
     }
 
@@ -34,6 +48,16 @@ public class FreeBoardController {
     @GetMapping("WriteForm")
     public String writeForm(@ModelAttribute @Valid FreeBoardDto freeBoardDto,BindingResult bindingResult){
         return "freeboard/writeform";
+    }
+
+    @GetMapping("UpdateForm")
+    public String UpdateForm(@ModelAttribute @Valid FreeBoardDto freeBoardDto,
+                             BindingResult bindingResult,
+                             Model model){
+        System.out.println(freeBoardDto);
+        FreeBoardDto dto = freeBoardService.getRow(freeBoardDto);
+        model.addAttribute("freeBoardDto",dto);
+        return "freeboard/updateform";
     }
 
     @PostMapping("WriteForm")
@@ -49,6 +73,18 @@ public class FreeBoardController {
                 return "redirect:/FreeBoard";
         }
         return "freeboard/writeform";
+    }
+
+    @PostMapping("UpdateForm")
+    public String pUpdateForm(@ModelAttribute @Valid FreeBoardDto freeBoardDto, BindingResult bindingResult,Model model){
+        if(bindingResult.hasErrors()){
+            return "freeboard/updateform";
+        }else{
+            boolean result = freeBoardService.insert(freeBoardDto);
+            if(result)
+                return "redirect:/FreeBoard";
+        }
+        return "freeboard/updateform";
     }
 
     @GetMapping("")

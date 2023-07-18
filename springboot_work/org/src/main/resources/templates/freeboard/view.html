@@ -11,6 +11,27 @@
 </th:block>
 <th:block layout:fragment="script">
   <script>
+    function doDelete(){
+      const idx = [[${freeBoardDto.idx}]];
+      let result = confirm('삭제하시겠습니까?');
+      if(result){
+        $.ajax({
+          url:"http://localhost:8080/FreeBoard/Delete",
+          data: {idx},
+          type: "delete",
+          success:function(result){
+            alert('삭제됨'+result);
+            console.log(result);
+            if(result ==='success'){
+              location.href="/FreeBoard";
+            }
+          },
+          error:function(error){
+            alert('error'+error);
+          }
+        });
+      }
+    }
   </script>
 </th:block>
 
@@ -23,13 +44,19 @@
       * <- 객체 안에 있는 변수들 가져올때..
       # <- 함수 사용시
     -->
-    <label>제목</label>
-    <div>
-
+    <label class="mb-3">제목</label>
+    <div class="border rounded p-3">
+      <span th:text="${freeBoardDto.title}"></span>
     </div>
-    <label>내용</label>
-    <div>
-
+    <label class="my-3">내용</label>
+    <div class="border rounded p-3">
+      <span th:text="${freeBoardDto.content}"></span>
+    </div>
+    <div class="my-3">
+      <a th:href="@{/FreeBoard/UpdateForm(idx=${freeBoardDto.idx})}"
+         class="btn btn-primary">글수정</a>
+      <button type="button" onclick="doDelete();"
+          class="btn btn-primary">글삭제</button>
     </div>
   </div>
 </th:block>

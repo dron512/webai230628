@@ -41,4 +41,10 @@ public class FreeBoardService {
         return true;
     }
 
+
+    public FreeBoardDto getRow(FreeBoardDto freeBoardDto) {
+        FreeBoard freeBoard = freeBoardRepository.findById(freeBoardDto.getIdx())
+                .orElse(new FreeBoard());
+        return FreeBoardDto.of(freeBoard);
+    }
 }
