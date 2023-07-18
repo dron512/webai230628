@@ -36,6 +36,7 @@ public class FreeBoardService {
     }
 
     public boolean insert(FreeBoardDto dto) {
+        // 작성일자 없어지는거 수정
         FreeBoard freeBoardEntity = freeBoardRepository.findById(dto.getIdx()).orElse(new FreeBoard());
         freeBoardEntity.setContent(dto.getContent());
         freeBoardEntity.setName(dto.getName());
