@@ -11,6 +11,6 @@ public interface FreeBoardRepository extends JpaRepository<FreeBoard,Integer> {
     // select * from freeboard where title like '%title%' or content like '%content%' limit 0,5 ;
     Page<FreeBoard> findByTitleContainingOrContentContaining(String title, String content, Pageable pageable);
 
-//    @Query("select board from FreeBoard where idx=?1")
-//    FreeBoard myQuery(int idx);
+    @Query("select board from FreeBoard board where idx=?1")
+    FreeBoard myQuery(int idx);
 }

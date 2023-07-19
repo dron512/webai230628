@@ -16,6 +16,8 @@ public class MainController {
 
     @GetMapping("/")
     public String index(){
+        FreeBoard freeBoard = freeBoardRepository.myQuery(1);
+        System.out.println(freeBoard);
 //        FreeBoard f1 = new FreeBoard().builder()
 //                .name("홍길동")
 //                .content("내요내욘ㅇ")
