@@ -23,16 +23,10 @@ public class FreeBoardService {
     @Autowired
     JPAQueryFactory jpaQueryFactory;
 
-    public List<FreeBoardDto> list(Pageable pageable) {
+    public Page<FreeBoard> list(Pageable pageable) {
 //        Pageable pageable = PageRequest.of(0,5, Sort.by("idx").descending());
         Page<FreeBoard> pagelist = freeBoardRepository.findAll(pageable);
-
-        List<FreeBoardDto> dtolist = new ArrayList<>();
-        for( FreeBoard fb :pagelist){
-            FreeBoardDto dto = FreeBoardDto.of(fb);
-            dtolist.add(dto);
-        }
-        return dtolist;
+        return pagelist;
     }
 
     public boolean insert(FreeBoardDto dto) {

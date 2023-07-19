@@ -6,6 +6,7 @@ import com.jpa.org.repository.FreeBoardRepository;
 import com.jpa.org.service.FreeBoardService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -15,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -93,9 +95,23 @@ public class FreeBoardController {
             sort = "idx",
             direction = Sort.Direction.DESC,
             page = 0) Pageable pageable){
-        List<FreeBoardDto> list = freeBoardService.list(pageable);
-        System.out.println(list);
-        model.addAttribute("list",list);
+        Page<FreeBoard> pagelist = freeBoardService.list(pageable);
+
+        // 총 행갯수
+        System.out.println(pagelist.getTotalElements());
+        // 총 페이지 갯수
+        System.out.println(pagelist.getTotalPages());
+
+        List<FreeBoardDto> dtolist = new ArrayList<>();
+        for( FreeBoard fb :pagelist){
+            FreeBoardDto dto = FreeBoardDto.of(fb);
+            dtolist.add(dto);
+        }
+
+        model.addAttribute("totalElements",pagelist.getTotalElements());
+        model.addAttribute("totalPages",pagelist.getTotalPages());
+
+        model.addAttribute("list",pagelist);
         return "freeboard/index";
     }
 

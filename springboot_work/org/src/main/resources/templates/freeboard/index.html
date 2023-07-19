@@ -15,28 +15,51 @@
 </th:block>
 
 <th:block layout:fragment="content">
+  <h1 th:text="${totalPages}"></h1>
+  <h1 th:text="${totalElements}"></h1>
   <div class="container">
     <h1>FreeBoard</h1>
     <table class="table">
       <thead>
-        <tr>
-          <th>순번</th>
-          <th>제목</th>
-          <th>작성자</th>
-          <th>작성일자</th>
-        </tr>
+      <tr>
+        <th>순번</th>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>작성일자</th>
+      </tr>
       </thead>
       <tbody>
-        <tr th:each="freeboarddto :${list}">
-          <td th:text="${freeboarddto.idx}"></td>
-          <td>
-            <a th:href="@{/FreeBoard/View(idx=${freeboarddto.idx})}" th:text="${freeboarddto.title}"></a>
-          </td>
-          <td th:text="${freeboarddto.name}"></td>
-          <td th:text="${#temporals.format(freeboarddto.createdDate,'yyyy-MM-dd HH:mm')}"></td>
-        </tr>
+      <tr th:each="freeboarddto :${list}">
+        <td th:text="${freeboarddto.idx}"></td>
+        <td>
+          <a th:href="@{/FreeBoard/View(idx=${freeboarddto.idx})}" th:text="${freeboarddto.title}"></a>
+        </td>
+        <td th:text="${freeboarddto.name}"></td>
+        <td th:text="${#temporals.format(freeboarddto.createdDate,'yyyy-MM-dd HH:mm')}"></td>
+      </tr>
       </tbody>
     </table>
+    <div class="d-flex justify-content-center">
+      <nav aria-label="pagination1">
+        <ul class="pagination">
+          <li class="page-item disabled">
+            <a class="page-link">Previous</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#">1</a>
+          </li>
+          <li class="page-item active" aria-current="page">
+            <a class="page-link" href="#">2</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#">3</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
     <a th:href="@{/FreeBoard/WriteForm}" class="btn btn-primary">글쓰기</a>
   </div>
 </th:block>
