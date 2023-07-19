@@ -23,9 +23,11 @@ public class FreeBoardService {
     @Autowired
     JPAQueryFactory jpaQueryFactory;
 
-    public Page<FreeBoard> list(Pageable pageable) {
+    public Page<FreeBoard> list(String searchText,String SearchText, Pageable pageable) {
 //        Pageable pageable = PageRequest.of(0,5, Sort.by("idx").descending());
-        Page<FreeBoard> pagelist = freeBoardRepository.findAll(pageable);
+//        Page<FreeBoard> pagelist = freeBoardRepository.findAll(pageable);
+        Page<FreeBoard> pagelist = freeBoardRepository.findByTitleContainingOrContentContaining(
+                searchText, SearchText, pageable);
         return pagelist;
     }
 

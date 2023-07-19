@@ -95,13 +95,9 @@ public class FreeBoardController {
             sort = "idx",
             direction = Sort.Direction.DESC,
             page = 0) Pageable pageable,
-            @RequestParam(required = false, defaultValue = "0") int page){
-        Page<FreeBoard> pagelist = freeBoardService.list(pageable);
-
-        // 총 행갯수
-        System.out.println(pagelist.getTotalElements());
-        // 총 페이지 갯수
-        System.out.println(pagelist.getTotalPages());
+            @RequestParam(required = false, defaultValue = "0") int page,
+            @RequestParam(required = false, defaultValue = "") String searchText){
+        Page<FreeBoard> pagelist = freeBoardService.list(searchText,searchText, pageable);
 
         List<FreeBoardDto> dtolist = new ArrayList<>();
         for( FreeBoard fb :pagelist){
