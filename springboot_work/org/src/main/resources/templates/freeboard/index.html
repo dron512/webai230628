@@ -15,10 +15,11 @@
 </th:block>
 
 <th:block layout:fragment="content">
-  <h1 th:text="${totalPages}"></h1>
-  <h1 th:text="${totalElements}"></h1>
+
   <div class="container">
     <h1>FreeBoard</h1>
+    <h2 th:text="${'총페이지수'+totalPages}"></h2>
+    <h2 th:text="${'총행갯수'+totalElements}"></h2>
     <table class="table">
       <thead>
       <tr>
@@ -42,20 +43,14 @@
     <div class="d-flex justify-content-center">
       <nav aria-label="pagination1">
         <ul class="pagination">
-          <li class="page-item disabled">
-            <a class="page-link">Previous</a>
+          <li class="page-item" th:classappend="${ curPage==1 }? 'disabled' ">
+            <a class="page-link" th:href="@{/FreeBoard(page=${curPage-2})}">Previous</a>
           </li>
-          <li class="page-item">
-            <a class="page-link" href="#">1</a>
+          <li class="page-item" th:each="i:${#numbers.sequence(1,5)}">
+            <a class="page-link" th:classappend="${i==curPage} ? 'active' " th:href="@{/FreeBoard(page=${i-1})}" th:text="${i}">1</a>
           </li>
-          <li class="page-item active" aria-current="page">
-            <a class="page-link" href="#">2</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">3</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">Next</a>
+          <li class="page-item" th:classappend="${ curPage==totalPages }? 'disabled' ">
+            <a class="page-link" th:href="@{/FreeBoard(page=${curPage})}">Next</a>
           </li>
         </ul>
       </nav>

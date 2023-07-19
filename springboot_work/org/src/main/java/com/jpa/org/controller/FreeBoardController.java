@@ -94,7 +94,8 @@ public class FreeBoardController {
             size = 5,
             sort = "idx",
             direction = Sort.Direction.DESC,
-            page = 0) Pageable pageable){
+            page = 0) Pageable pageable,
+            @RequestParam(required = false, defaultValue = "0") int page){
         Page<FreeBoard> pagelist = freeBoardService.list(pageable);
 
         // 총 행갯수
@@ -107,7 +108,7 @@ public class FreeBoardController {
             FreeBoardDto dto = FreeBoardDto.of(fb);
             dtolist.add(dto);
         }
-
+        model.addAttribute("curPage",page+1);
         model.addAttribute("totalElements",pagelist.getTotalElements());
         model.addAttribute("totalPages",pagelist.getTotalPages());
 
