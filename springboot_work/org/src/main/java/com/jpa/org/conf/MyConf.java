@@ -11,8 +11,6 @@ public class MyConf {
     @PersistenceContext
     private EntityManager entityManager;
 
-//    implementation 'com.querydsl:querydsl-apt' 있어야함
-
     @Bean
     public JPAQueryFactory jpaQueryFactory() {
         return new JPAQueryFactory(entityManager);
