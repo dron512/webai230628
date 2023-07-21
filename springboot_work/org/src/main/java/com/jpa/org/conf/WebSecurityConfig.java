@@ -1,6 +1,7 @@
 package com.jpa.org.conf;
 
 import com.jpa.org.service.MemberService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,21 +22,32 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
             .authorizeHttpRequests((requests) -> requests
-                    .requestMatchers("/", "/Member/**", "/item/**", "/images/**").permitAll()
-                    .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
-                    .requestMatchers("/account/**").permitAll()
+                .requestMatchers("/", "/Member/**", "/item/**", "/images/**").permitAll()
+                .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
+                .requestMatchers("/account/**").permitAll()
 //                    .requestMatchers("/admin/**").hasRole("ADMIN")
 //                    .requestMatchers("/user/**").hasRole("USER")
-                    .anyRequest().authenticated()
+                .anyRequest().authenticated()
             )
             .formLogin(
-                    (form) -> form
-//                    .loginPage("/account/login")
-//                        .defaultSuccessUrl("/")
-//                        .failureUrl("/account/login?error")
-                    .permitAll()
+                (form) -> form
+                .loginPage("/account/login")
+                    .defaultSuccessUrl("/")
+                    .failureUrl("/account/login?error")
+                .permitAll()
             )
-            .logout(  (logout) -> logout.permitAll()  );
+            .logout(  (logout) -> logout
+//                    .logoutUrl("/account/logout")
+//                    .addLogoutHandler(((request, response, authentication) -> {
+//                        HttpSession session = request.getSession();
+//                        if(session!=null){
+//                            session.invalidate();
+//                        }
+//                    }))
+//                    .logoutSuccessHandler(((request, response, authentication) -> {
+//                        response.sendRedirect("/account/login");
+//                    }))
+                    .permitAll()  );
         return http.build();
     }
 

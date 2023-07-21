@@ -3,6 +3,7 @@ package com.jpa.org.service;
 import com.jpa.org.entity.Member;
 import com.jpa.org.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,7 +22,16 @@ public class MemberService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         System.out.println("일로 오나"+username);
-        return null;
+        Member member = memberRepository.findByUsername(username);
+        System.out.println(member);
+        if( member == null){
+            throw new UsernameNotFoundException("그런 회원 없다.");
+        }
+        return User.builder()
+                .username(username)
+                .password(member.getPassword())
+                .roles(new String[]{"USER",})
+                .build();
     }
 
     public void save(Member member) {
