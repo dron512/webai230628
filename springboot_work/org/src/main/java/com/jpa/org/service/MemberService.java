@@ -1,7 +1,10 @@
 package com.jpa.org.service;
 
 import com.jpa.org.entity.Member;
+import com.jpa.org.entity.Role;
 import com.jpa.org.repository.MemberRepository;
+import com.jpa.org.repository.RoleRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,6 +12,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class MemberService implements UserDetailsService {
@@ -20,6 +26,7 @@ public class MemberService implements UserDetailsService {
     MemberRepository memberRepository;
 
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         System.out.println("일로 오나"+username);
         Member member = memberRepository.findByUsername(username);
@@ -35,9 +42,15 @@ public class MemberService implements UserDetailsService {
     }
 
     public void save(Member member) {
+
+        // 회원 중복 확인...
         boolean result = validate(member);
         if(result) {
+            // 패스워드는 암호화 해서 저장
             member.setPassword(passwordEncoder.encode(member.getPassword()));
+            // 롤을 적용해야 합니다
+            List<Role> list = Arrays.asList(new Role(1,"User"),new Role(2,"Admin"));
+            member.setRoles(list);
             memberRepository.save(member);
         }
     }

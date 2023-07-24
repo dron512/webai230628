@@ -1,14 +1,14 @@
 package com.jpa.org.entity;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -28,4 +28,9 @@ public class Member extends BaseTimeEntity{
     private String age;
     private String gender;
 
+    @ManyToMany
+    @JoinTable(name="member_role",
+          joinColumns = @JoinColumn(name = "member_idx"),
+            inverseJoinColumns = @JoinColumn(name = "role_idx"))
+    private List<Role> roles;
 }

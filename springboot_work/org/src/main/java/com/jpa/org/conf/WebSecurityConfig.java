@@ -22,8 +22,8 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
             .authorizeHttpRequests((requests) -> requests
-                .requestMatchers("/", "/Member/**", "/item/**", "/images/**").permitAll()
-                .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
+                .requestMatchers("/", "/Member/**", "/images/**").permitAll()
+                .requestMatchers("/css/**", "/js/**").permitAll()
                 .requestMatchers("/account/**").permitAll()
 //                    .requestMatchers("/admin/**").hasRole("ADMIN")
 //                    .requestMatchers("/user/**").hasRole("USER")
@@ -36,18 +36,7 @@ public class WebSecurityConfig {
                     .failureUrl("/account/login?error")
                 .permitAll()
             )
-            .logout(  (logout) -> logout
-//                    .logoutUrl("/account/se")
-//                    .addLogoutHandler(((request, response, authentication) -> {
-//                        HttpSession session = request.getSession();
-//                        if(session!=null){
-//                            session.invalidate();
-//                        }
-//                    }))
-//                    .logoutSuccessHandler(((request, response, authentication) -> {
-//                        response.sendRedirect("/");
-//                    }))
-                    .permitAll()  );
+            .logout(  (logout) -> logout.permitAll()  );
         return http.build();
     }
 
