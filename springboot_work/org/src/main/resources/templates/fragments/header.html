@@ -37,6 +37,12 @@
           <li class="nav-item">
             <a class="nav-link disabled">Disabled</a>
           </li>
+          <li class="nav-item" sec:authorize="isAuthenticated()">
+            <span class="nav-link" sec:authentication="principal.username">이름</span>
+          </li>
+          <li class="nav-item">
+            <span class="nav-link" sec:authentication="principal.authorities">권한</span>
+          </li>
         </ul>
 
       </div>

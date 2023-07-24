@@ -16,7 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfig {
 
     @Autowired
-    MemberService userService;
+    MemberService memberService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
@@ -37,7 +37,7 @@ public class WebSecurityConfig {
                 .permitAll()
             )
             .logout(  (logout) -> logout
-//                    .logoutUrl("/account/logout")
+//                    .logoutUrl("/account/se")
 //                    .addLogoutHandler(((request, response, authentication) -> {
 //                        HttpSession session = request.getSession();
 //                        if(session!=null){
@@ -45,7 +45,7 @@ public class WebSecurityConfig {
 //                        }
 //                    }))
 //                    .logoutSuccessHandler(((request, response, authentication) -> {
-//                        response.sendRedirect("/account/login");
+//                        response.sendRedirect("/");
 //                    }))
                     .permitAll()  );
         return http.build();
