@@ -1,6 +1,5 @@
 # requests, betifulsoap
 from selenium import webdriver
-
 import time
 
 # chromedriver
@@ -13,9 +12,7 @@ driver.get(url='http://rt.molit.go.kr/')
 time.sleep(1)
 
 # driver.switch_to()
-#
 # driver.close()
-
 time.sleep(3)
 
 driver.exit()

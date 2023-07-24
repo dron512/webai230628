@@ -24,10 +24,10 @@ test_df.drop('id', axis=1, inplace=True)
 
 print(train_df.head(3))
 
-twitter = Okt()
+okt = Okt()
 def tw_tokenizer(text):
     # 입력 인자로 들어온 text 를 형태소 단어로 토큰화 하여 list 객체 반환
-    tokens_ko = twitter.morphs(text)
+    tokens_ko = okt.morphs(text)
     return tokens_ko
 
 
