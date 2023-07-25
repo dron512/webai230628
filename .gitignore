@@ -1,3 +1,4 @@
 *.log
 *.tmp
 /python_work/myvenv
+*.pickle

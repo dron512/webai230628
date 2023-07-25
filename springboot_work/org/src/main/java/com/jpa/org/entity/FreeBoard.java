@@ -1,9 +1,6 @@
 package com.jpa.org.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -22,4 +19,8 @@ public class FreeBoard extends BaseTimeEntity{
     private String name;
     private String title;
     private String content;
+
+    @ManyToOne
+    @JoinColumn(name = "member_idx")
+    private Member member;
 }

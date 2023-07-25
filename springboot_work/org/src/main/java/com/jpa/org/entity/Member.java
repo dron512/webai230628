@@ -33,4 +33,19 @@ public class Member extends BaseTimeEntity{
           joinColumns = @JoinColumn(name = "member_idx"),
             inverseJoinColumns = @JoinColumn(name = "role_idx"))
     private List<Role> roles;
+
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    private List<FreeBoard> boards = new ArrayList<>();
 }
+
+
+
+
+
+
+
+
+
+
+
+

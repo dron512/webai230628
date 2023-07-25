@@ -58,3 +58,6 @@ preds = best_estimator.predict(tfidf_matrix_test)
 
 print('Logistic Regression 정확도: ',accuracy_score(test_df['label'],preds))
 
+import pickle
+with open('saved_model.pickle','wb') as fw:
+    pickle.dump(best_estimator,fw)

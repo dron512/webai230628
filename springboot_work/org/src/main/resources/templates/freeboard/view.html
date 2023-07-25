@@ -55,8 +55,10 @@
     <div class="my-3">
       <a th:href="@{/FreeBoard/UpdateForm(idx=${freeBoardDto.idx})}"
          class="btn btn-primary">글수정</a>
-      <button type="button" onclick="doDelete();"
-          class="btn btn-primary">글삭제</button>
+<!--      <button type="button" onclick="doDelete();"-->
+<!--          class="btn btn-primary">글삭제</button>-->
+      <a th:href="@{/FreeBoard/Delete(idx=${freeBoardDto.idx})}"
+         class="btn btn-primary">글삭제</a>
     </div>
   </div>
 </th:block>

@@ -25,7 +25,6 @@ public class MainController {
     public String index(
 //            @RequestParam(required = false) Authentication authentication
     ){
-
         roleRepository.save(new Role(1,"User"));
         roleRepository.save(new Role(2,"Admin"));
         roleRepository.save(new Role(3,"Manager"));

@@ -4,13 +4,18 @@ import com.jpa.org.dto.FreeBoardDto;
 import com.jpa.org.entity.FreeBoard;
 import com.jpa.org.repository.FreeBoardRepository;
 import com.jpa.org.service.FreeBoardService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,8 +34,9 @@ public class FreeBoardController {
     @Autowired
     FreeBoardRepository freeBoardRepository;
 
-    @DeleteMapping("Delete")
+    @GetMapping("Delete")
     public @ResponseBody String delete(FreeBoardDto freeBoardDto){
+        System.out.println(freeBoardDto);
         freeBoardRepository.deleteById(freeBoardDto.getIdx());
         return "success";
     }
@@ -63,7 +69,22 @@ public class FreeBoardController {
     }
 
     @PostMapping("WriteForm")
-    public String pwriteForm(@ModelAttribute @Valid FreeBoardDto freeBoardDto, BindingResult bindingResult,Model model){
+    public String pwriteForm(@ModelAttribute @Valid FreeBoardDto freeBoardDto,
+                             BindingResult bindingResult,
+                             Model model,
+                             HttpServletRequest request,
+                             HttpSession session,
+                             Authentication authentication){
+        System.out.println("title = "+request.getParameter("title"));
+        System.out.println("username = "+session.getAttribute("username"));
+
+        System.out.println("authentication = "+authentication);
+        System.out.println("authentication = "+authentication.getPrincipal());
+        if(authentication !=null){
+            User user = (User) authentication.getPrincipal();
+            freeBoardDto.setName(user.getUsername());
+        }
+
         if(bindingResult.hasErrors()){
             System.out.println("사이즈 문제 있음");
 //            model.addAttribute("freeboarddto",dto);
