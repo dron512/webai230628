@@ -25,6 +25,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/", "/Member/**", "/images/**").permitAll()
                 .requestMatchers("/css/**", "/js/**").permitAll()
                 .requestMatchers("/account/**").permitAll()
+                .requestMatchers("/FreeBoard/Delete/**").permitAll()
 //                    .requestMatchers("/admin/**").hasRole("ADMIN")
 //                    .requestMatchers("/user/**").hasRole("USER")
                 .anyRequest().authenticated()

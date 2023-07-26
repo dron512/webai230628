@@ -35,9 +35,17 @@ public class FreeBoardController {
     FreeBoardRepository freeBoardRepository;
 
     @GetMapping("Delete")
-    public @ResponseBody String delete(FreeBoardDto freeBoardDto){
+    public String delete(FreeBoardDto freeBoardDto){
         System.out.println(freeBoardDto);
         freeBoardRepository.deleteById(freeBoardDto.getIdx());
+        return "redirect:/FreeBoard";
+    }
+
+    @DeleteMapping("/Delete/{idx}")
+    @CrossOrigin(origins = "*",methods = RequestMethod.DELETE)
+    public @ResponseBody String pdelete(@PathVariable int idx){
+        System.out.println("일로왔나");
+        freeBoardRepository.deleteById(idx);
         return "success";
     }
 
