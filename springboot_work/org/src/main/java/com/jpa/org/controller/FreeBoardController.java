@@ -41,14 +41,6 @@ public class FreeBoardController {
         return "redirect:/FreeBoard";
     }
 
-    @DeleteMapping("/Delete/{idx}")
-    @CrossOrigin(origins = "*",methods = RequestMethod.DELETE)
-    public @ResponseBody String pdelete(@PathVariable int idx){
-        System.out.println("일로왔나");
-        freeBoardRepository.deleteById(idx);
-        return "success";
-    }
-
     @GetMapping("View")
     public String view(@ModelAttribute @Valid FreeBoardDto freeBoardDto,
                        BindingResult bindingResult,

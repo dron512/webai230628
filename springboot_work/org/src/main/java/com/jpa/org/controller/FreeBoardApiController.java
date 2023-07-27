@@ -1,11 +1,10 @@
 package com.jpa.org.controller;
 
+import com.jpa.org.dto.FreeBoardDto;
 import com.jpa.org.entity.FreeBoard;
 import com.jpa.org.repository.FreeBoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,4 +20,11 @@ public class FreeBoardApiController {
         return freeBoardRepository.findAll();
     }
 
+    @PostMapping("Delete")
+    @CrossOrigin
+    public String delete(FreeBoardDto freeBoardDto){
+        System.out.println(freeBoardDto);
+        freeBoardRepository.deleteById(freeBoardDto.getIdx());
+        return "redirect:/FreeBoard";
+    }
 }

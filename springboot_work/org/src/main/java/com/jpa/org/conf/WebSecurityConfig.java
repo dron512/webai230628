@@ -20,12 +20,14 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+
+        http.csrf((temp)->temp.disable());
         http
             .authorizeHttpRequests((requests) -> requests
                 .requestMatchers("/", "/Member/**", "/images/**").permitAll()
                 .requestMatchers("/css/**", "/js/**").permitAll()
                 .requestMatchers("/account/**").permitAll()
-                .requestMatchers("/FreeBoard/Delete/**").permitAll()
+                .requestMatchers("/api/**").permitAll()
 //                    .requestMatchers("/admin/**").hasRole("ADMIN")
 //                    .requestMatchers("/user/**").hasRole("USER")
                 .anyRequest().authenticated()

@@ -25,7 +25,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/", "/Member/**", "/item/**", "/images/**").permitAll()
                 .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
                 .requestMatchers("/account/**").permitAll()
-//                    .requestMatchers("/admin/**").hasRole("ADMIN")
+                    .requestMatchers("/api/**").permitAll()
 //                    .requestMatchers("/user/**").hasRole("USER")
                 .anyRequest().authenticated()
             )
