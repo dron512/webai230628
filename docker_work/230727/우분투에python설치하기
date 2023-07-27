@@ -1,0 +1,24 @@
+# image 파일 다운로드
+docker pull ubuntu
+# 이미지 파일 목록 보기
+docker images
+# 이미지 컨테이너 목록 보기 
+# -a 옵션하면 정지된 컨테이너 보기
+docker ps
+# 이미지를 컨테이너화 생성 
+docker create --name myubuntu ubuntu
+# 이미지를 컨테이너화 실행 
+docker start --name myubuntu ubuntu
+
+# 이미지 컨테이너 생성 및 실행 pull까지 ....
+docker run --name myubuntu -d -it -p 5000:5000 ubuntu
+
+# 로컬 PC에서 컨테이너로 이동
+docker exec -it myubuntu bash
+# 종료
+exit
+
+# 컨테이너 이름이 myubuntu 삭제
+docker rm myubuntu
+# 이미지 ubutu 삭제
+docker rmi ubuntu
