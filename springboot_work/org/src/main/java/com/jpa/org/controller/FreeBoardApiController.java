@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api")
+@CrossOrigin
 public class FreeBoardApiController {
 
     @Autowired
@@ -25,6 +26,6 @@ public class FreeBoardApiController {
     public String delete(FreeBoardDto freeBoardDto){
         System.out.println(freeBoardDto);
         freeBoardRepository.deleteById(freeBoardDto.getIdx());
-        return "redirect:/FreeBoard";
+        return "Success";
     }
 }

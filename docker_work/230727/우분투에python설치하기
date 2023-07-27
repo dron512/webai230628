@@ -22,3 +22,21 @@ exit
 docker rm myubuntu
 # 이미지 ubutu 삭제
 docker rmi ubuntu
+
+# 리눅스 업데이트
+apt update
+# 리눅스에 ide 설치 설치 할꺼냐 y해야됨..
+apt install vim
+# 폴더 만들어라 
+mkdir src
+# 폴더 이동해라
+cd src
+# 소스 작성하기
+vi app.py
+python 소스 넣고 wq 로 종료하기
+
+# dockerfile로 이미지 만드는 명령어 
+docker build -t myflaskimage .
+
+# 내 이미지로 컨테이너 만들어서 실행하기
+docker run -d -it --name py-container -p 5000:5000 myflaskimage

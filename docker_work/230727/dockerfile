@@ -1,0 +1,11 @@
+FROM ubuntu:latest
+
+RUN apt update && apt install -y python3
+RUN apt install -y python3-pip
+# RUN apt install python-dev build-essential
+RUN pip3 install flask
+
+WORKDIR /WORK
+RUN echo "HELLO DOCKER" >hello.dat
+COPY app.py .
+CMD [ "python3","app.py" ]

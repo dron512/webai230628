@@ -18,6 +18,7 @@
         $.ajax({
           url:"http://localhost:8080/api/Delete",
           type: "post",
+          data: {idx},
           success:function(result){
             alert('삭제됨'+result);
             console.log(result);
