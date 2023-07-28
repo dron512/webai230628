@@ -50,7 +50,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
         }catch (Exception e){
             response.sendRedirect("/auth/login");
-            filterChain.doFilter(request,response);
+//            filterChain.doFilter(request,response);
             return;
         }
 

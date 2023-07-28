@@ -4,11 +4,19 @@
   <meta charset="UTF-8">
   <title>Title</title>
   <script>
+     let headers = new Headers();
+    // headers.append('Content-Type', 'application/json');
+    // headers.append('Accept', 'application/json');
+    // headers.append('Authorization', 'Basic ' + base64.encode(username + ":" +  password));
+    headers.append('Origin','http://localhost:8080');
     // ajax 로 로그인
     // javasciprt react
     function doA(){
         fetch("http://localhost:8080/auth/join", {
+            mode: 'cors',
             method: "POST",
+            credentials: 'include',
+            headers: headers,
             body: JSON.stringify({
                 email: "id",
                 password: "pw",
@@ -19,6 +27,9 @@
     }
     function doB(){
         fetch("http://localhost:8080/auth/login", {
+            mode: 'cors',
+            headers: headers,
+            credentials: 'include',
             method: "POST",
             body: JSON.stringify({
                 email: "id",
@@ -30,15 +41,14 @@
     }
     function doC(){
         fetch("http://localhost:8080/freeboard/select", {
-            method: "POST",
+            mode: 'cors',
+            headers: headers,
+            credentials: 'include',
+            method: "GET",
             headers: {
                 Authorization : 
-                "Bearer asdasdasd",
+                "Bearer eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6Im1oIiwiaWF0IjoxNjkwNTI0Mjc5LCJleHAiOjE2OTA1MjQzMDl9.fgr6vqkl4n33JZqu666xdQoV1qc0rKLDXcSkwhJvdM1bhfT_Z-hYK1WKaTt5LJo17c0NLg7DJrIqrTZRxAW8oQ",
             },
-            body: JSON.stringify({
-                email: "id",
-                password: "pw",
-            }),
         })
         .then((response) => response.text())
         .then((result) => console.log(result));
