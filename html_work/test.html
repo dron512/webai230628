@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script>
+    // ajax 로 로그인
+    // javasciprt react
+    function doA(){
+        fetch("http://localhost:8080/auth/join", {
+            method: "POST",
+            body: JSON.stringify({
+                email: "id",
+                password: "pw",
+            }),
+            })
+        .then((response) => response.text())
+        .then((result) => console.log(result));
+    }
+    function doB(){
+        fetch("http://localhost:8080/auth/login", {
+            method: "POST",
+            body: JSON.stringify({
+                email: "id",
+                password: "pw",
+            }),
+            })
+        .then((response) => response.text())
+        .then((result) => console.log(result));
+    }
+  </script>
+</head>
+<body>
+    <button onclick="doA();">doA</button>
+    <button onclick="doB();">doB</button>
+</body>
+</html>
