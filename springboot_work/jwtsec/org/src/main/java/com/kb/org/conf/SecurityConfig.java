@@ -16,6 +16,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
+import java.util.List;
 
 
 //interface DoA{
@@ -36,21 +37,27 @@ public class SecurityConfig {
 //
 //    DoA aa1 = ()->{};
 
-//    private final AuthenticationProvider authenticationProvider;
+    //    private final AuthenticationProvider authenticationProvider;
     private final JwtAuthenticationFilter jwtAuthFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
-//                .cors(Customizer.withDefaults())
+                .cors(cors-> cors.configurationSource(request -> {
+                    var cosconfig = new CorsConfiguration();
+                    cosconfig.setAllowedOrigins(List.of("*"));
+                    cosconfig.setAllowedMethods(List.of("*"));
+                    cosconfig.setAllowedHeaders(List.of("*"));
+                    return cosconfig;
+                }))
                 .authorizeHttpRequests(
                         (authorizeRequest) ->
                                 authorizeRequest
                                         // 회원가입 로그인 허용...
-                                    .requestMatchers("/auth/**").permitAll()
+                                        .requestMatchers("/auth/**").permitAll()
                                         // 다른것들은 인증이 필요하다...
-                                    .anyRequest().authenticated()
+                                        .anyRequest().authenticated()
                 )
                 .sessionManagement((sessionManagement) ->
                         // 세션은 허용하지 않겠다..
@@ -65,16 +72,5 @@ public class SecurityConfig {
         //.httpBasic(withDefaults()); /* jwt 사용으로 사용하지 않음 */
 
         return http.build();
-    }
-
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("*"));
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("**", configuration);
-        return source;
     }
 }

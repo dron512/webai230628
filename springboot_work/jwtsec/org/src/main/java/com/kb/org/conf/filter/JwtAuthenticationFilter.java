@@ -49,7 +49,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 System.out.println("이미 기간 지남");
             }
         }catch (Exception e){
-            response.sendRedirect("/auth/login");
+            response.setContentType("text/plain");
+            response.getOutputStream().write("JWT 만료 되었습니다.".getBytes());
 //            filterChain.doFilter(request,response);
             return;
         }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("auth")
 @RequiredArgsConstructor
-//@CrossOrigin
+@CrossOrigin
 public class AuthController {
     // Contoller -> serivce -> jwtutils
     private final UserService userService;

@@ -4,19 +4,11 @@
   <meta charset="UTF-8">
   <title>Title</title>
   <script>
-     let headers = new Headers();
-    // headers.append('Content-Type', 'application/json');
-    // headers.append('Accept', 'application/json');
-    // headers.append('Authorization', 'Basic ' + base64.encode(username + ":" +  password));
-    headers.append('Origin','http://localhost:8080');
-    // ajax 로 로그인
     // javasciprt react
     function doA(){
         fetch("http://localhost:8080/auth/join", {
             mode: 'cors',
             method: "POST",
-            credentials: 'include',
-            headers: headers,
             body: JSON.stringify({
                 email: "id",
                 password: "pw",
@@ -28,8 +20,6 @@
     function doB(){
         fetch("http://localhost:8080/auth/login", {
             mode: 'cors',
-            headers: headers,
-            credentials: 'include',
             method: "POST",
             body: JSON.stringify({
                 email: "id",
@@ -42,8 +32,6 @@
     function doC(){
         fetch("http://localhost:8080/freeboard/select", {
             mode: 'cors',
-            headers: headers,
-            credentials: 'include',
             method: "GET",
             headers: {
                 Authorization : 
