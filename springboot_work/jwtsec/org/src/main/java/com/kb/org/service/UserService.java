@@ -10,6 +10,7 @@ public class UserService {
 
     private final JwtUtils jwtUtils;
     public String createToken(){
-        return jwtUtils.createToken("mh", 1000*60*5L);
+        return jwtUtils.createToken("mh", 1000*30l);
+//        return jwtUtils.createToken("mh", 1000*60*5L);
     }
 }

@@ -28,10 +28,26 @@
         .then((response) => response.text())
         .then((result) => console.log(result));
     }
+    function doC(){
+        fetch("http://localhost:8080/freeboard/select", {
+            method: "POST",
+            headers: {
+                Authorization : 
+                "Bearer asdasdasd",
+            },
+            body: JSON.stringify({
+                email: "id",
+                password: "pw",
+            }),
+        })
+        .then((response) => response.text())
+        .then((result) => console.log(result));
+    }
   </script>
 </head>
 <body>
     <button onclick="doA();">doA</button>
     <button onclick="doB();">doB</button>
+    <button onclick="doC();">doC</button>
 </body>
 </html>

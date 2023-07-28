@@ -26,4 +26,12 @@ public class JwtUtils {
                 .signWith(SignatureAlgorithm.HS512, key)
                 .compact();
     }
+
+    // 토큰이 발행한지 시간 체크 하는 함수...
+    public boolean isExpried(String token) {
+        return Jwts.parser().setSigningKey(key).parseClaimsJws(token)
+                .getBody()
+                .getExpiration()
+                .before(new Date());
+    }
 }
