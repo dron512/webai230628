@@ -1,0 +1,35 @@
+{
+    "workbench.colorCustomizations": {
+        "[Default Dark Modern]": {
+            "tab.activeBorderTop": "#00FF00",
+            "tab.unfocusedActiveBorderTop": "#00FF0088",
+            "textCodeBlock.background": "#00000055"
+        },
+        "[Default Dark+][Visual Studio Dark]": {
+            "tab.activeBorder": "#0F0"
+        },
+        "editor.wordHighlightStrongBorder": "#FF6347",
+        "editor.wordHighlightBorder": "#FFD700",
+        "editor.selectionHighlightBorder": "#A9A9A9",
+        "terminal.background": "#F9F5D7",
+        "terminal.foreground": "#504945",
+        "terminalCursor.background": "#504945",
+        "terminalCursor.foreground": "#504945",
+        "terminal.ansiBlack": "#F9F5D7",
+        "terminal.ansiBlue": "#076678",
+        "terminal.ansiBrightBlack": "#BDAE93",
+        "terminal.ansiBrightBlue": "#076678",
+        "terminal.ansiBrightCyan": "#427B58",
+        "terminal.ansiBrightGreen": "#79740E",
+        "terminal.ansiBrightMagenta": "#8F3F71",
+        "terminal.ansiBrightRed": "#9D0006",
+        "terminal.ansiBrightWhite": "#282828",
+        "terminal.ansiBrightYellow": "#B57614",
+        "terminal.ansiCyan": "#427B58",
+        "terminal.ansiGreen": "#79740E",
+        "terminal.ansiMagenta": "#8F3F71",
+        "terminal.ansiRed": "#9D0006",
+        "terminal.ansiWhite": "#504945",
+        "terminal.ansiYellow": "#B57614"
+    }
+}
