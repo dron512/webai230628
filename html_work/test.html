@@ -7,7 +7,6 @@
     // javasciprt react
     function doA(){
         fetch("http://localhost:8080/auth/join", {
-            mode: 'cors',
             method: "POST",
             body: JSON.stringify({
                 email: "id",
@@ -19,7 +18,6 @@
     }
     function doB(){
         fetch("http://localhost:8080/auth/login", {
-            mode: 'cors',
             method: "POST",
             body: JSON.stringify({
                 email: "id",
@@ -31,7 +29,6 @@
     }
     function doC(){
         fetch("http://localhost:8080/freeboard/select", {
-            mode: 'cors',
             method: "GET",
             headers: {
                 Authorization : 
