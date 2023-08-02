@@ -2,3 +2,5 @@
 *.tmp
 /python_work/myvenv
 *.pickle
+/python_work/pythonProject/pymlrev2-main
+/python_work/pythonProject/230802/best-cnn-model.h5
