@@ -53,7 +53,7 @@ test.append("이 영화 진짜 좋음")   #1
 test.append("이 영화 진짜 구림")   #0
 
 test = tfidf_vect.transform(test)
-print(test)
+# print(test)
 
 pred = estimator.predict(test)
 print(pred)
