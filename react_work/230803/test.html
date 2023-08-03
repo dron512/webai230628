@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // $('document').ready(()=>{
+        // })
+        document.addEventListener('DOMContentLoaded',()=>{
+            alert('문서가 다 불러오고 실행');
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            const data = {name,age};
+            fetch('http://localhost:3000/login',{
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        data
+                    })
+                }
+            ).then(r=>r.text())
+            .then(re=>console.log(re))
+        })
+    </script>
+</head>
+<body>
+    <form>
+        <input type="text" name="name" id="name">
+        <input type="text" name="age" id="age">
+        <input type="button" value="전송" id="submit"/>
+    </form>
+</body>
+</html>
