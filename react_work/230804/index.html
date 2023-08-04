@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="mydiv">
+    </div>
+    <button id="test">버튼</button>
+</body>
+</html>
+<script>
+    const data = { name:"홍길동", age:20};
+    document.getElementById('test').onclick = ()=>{
+        const myspan1 = document.createElement('span');
+        myspan1.textContent=`이름 ${data.name}`;
+        const myspan2 = document.createElement('span');
+        myspan2.textContent=`나이 ${data.age}`;
+        const mydiv = document.getElementById('mydiv');
+        mydiv.append(myspan1);
+        mydiv.append(myspan2);
+    }
+</script>
