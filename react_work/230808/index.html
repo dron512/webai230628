@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <h1>상품들</h1>
+        <ul id="product">
+            <li>상품A</li>
+            <li>상품B</li>
+            <li>상품C</li>
+        </ul>
+    </div>
+    <button id="ch">바꾸기</button>
+    <button id="load">불러오기</button>
+    <script>
+        document.getElementById('ch').onclick = ()=>{
+            const li = document.querySelector('#product>li');
+            console.log(li);
+            li.textContent = li.textContent ==='상품A' ? '상품D':'상품A';
+        }
+        document.getElementById('load').onclick = ()=>{
+            const li = document.createElement('li');
+            li.textContent = '상품E';
+            const product = document.getElementById('product');
+            product.append(li);
+        }
+    </script>
+</body>
+</html>

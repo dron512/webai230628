@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>할일</h1>
+    <div>
+        <input type="text" name="todo" id="todo" style="height: 1.5rem;"/>
+        <button id="add">추가</button>
+    </div>
+    <div>
+        <ul class="list">
+            <li style="display: flex; align-items: center;">
+                <h2 style="margin-right: 1rem;">공부하기</h2>
+                <button>삭제</button>
+            </li>
+        </ul>
+    </div>
+    <script>
+        document.getElementById('add').onclick = ()=>{
+            const li = document.createElement('li');
+            li.style.display = 'flex';
+            li.style.alignItems = 'center';
+
+            const h2 = document.createElement('h2');
+            h2.style.marginRight = '1rem';
+            h2.textContent = '임시';
+
+            const button = document.createElement('button');
+            button.textContent = '삭제';
+
+            li.appendChild(h2);
+            li.appendChild(button);
+
+            const ul = document.getElementsByClassName('list')[0];
+            ul.appendChild(li);
+        }
+    </script>
+</body>
+</html>
