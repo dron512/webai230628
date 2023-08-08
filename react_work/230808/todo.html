@@ -13,21 +13,28 @@
     </div>
     <div>
         <ul class="list">
-            <li style="display: flex; align-items: center;">
-                <h2 style="margin-right: 1rem;">공부하기</h2>
-                <button>삭제</button>
-            </li>
         </ul>
     </div>
     <script>
-        document.getElementById('add').onclick = ()=>{
+        // JSON 객체로 되어 있는것을 문자열로 변환 하는 함수
+        // {a:10,b:20,c:30} => '{a:10,b:20,c:30}'
+        // JSON.stringify()
+
+        // JSON 문자열로 되어 있는것을 JSON 객체로 변환하는 함수
+        // '{a:10,b:20,c:30}' => {a:10,b:20,c:30}
+        // JSON.parse()
+
+        const doAdd = (text)=>{
             const li = document.createElement('li');
             li.style.display = 'flex';
             li.style.alignItems = 'center';
 
             const h2 = document.createElement('h2');
             h2.style.marginRight = '1rem';
-            h2.textContent = '임시';
+            if( text === null)
+                h2.textContent = todo.value;
+            else
+                h2.textContent = text;
 
             const button = document.createElement('button');
             button.textContent = '삭제';
@@ -38,6 +45,34 @@
             const ul = document.getElementsByClassName('list')[0];
             ul.appendChild(li);
         }
+
+        document.getElementById('add').onclick = ()=>{
+            let todolist = JSON.parse(localStorage.getItem('todolist'));
+            const todo = document.getElementById('todo');
+            if(todo.value ===''){
+                return;
+            }
+            doAdd(todo.value);
+            if (todolist===null || todolist ==='null'){
+                todolist = new Array();
+                todolist.push(todo.value);
+            }else{
+                todolist.push(todo.value);
+            }
+            localStorage.setItem('todolist',JSON.stringify(todolist));
+
+            todo.value = '';
+        }
+        let todolist = JSON.parse(localStorage.getItem('todolist'));
+        todolist.map(ele=>{
+            doAdd(ele);
+        })
+            // console.log(todolist)
+            // for (const temp of todolist) {
+            //     console.log(temp);
+            //     doAdd(temp);
+            // }
+       
     </script>
 </body>
 </html>
