@@ -16,14 +16,6 @@
         </ul>
     </div>
     <script>
-        // JSON 객체로 되어 있는것을 문자열로 변환 하는 함수
-        // {a:10,b:20,c:30} => '{a:10,b:20,c:30}'
-        // JSON.stringify()
-
-        // JSON 문자열로 되어 있는것을 JSON 객체로 변환하는 함수
-        // '{a:10,b:20,c:30}' => {a:10,b:20,c:30}
-        // JSON.parse()
-
         const doAdd = (text)=>{
             const li = document.createElement('li');
             li.style.display = 'flex';
@@ -36,8 +28,23 @@
             else
                 h2.textContent = text;
 
+            h2.onclick = ()=>{
+                h2.style.textDecoration = h2.style.textDecoration===''? "line-through":'';
+                h2.style.color = h2.style.color===''? "gray":'';                  //클릭시 색변환
+            }
+
             const button = document.createElement('button');
             button.textContent = '삭제';
+            button.onclick = ()=>{
+                const closeli = button.closest('li');
+                ul.removeChild(closeli);
+
+                let todolist = JSON.parse(localStorage.getItem('todolist'));
+                if(todolist){
+                    todolist = todolist.filter(ele => ele !== h2.textContent)
+                    localStorage.setItem('todolist',JSON.stringify(todolist));
+                }
+            }
 
             li.appendChild(h2);
             li.appendChild(button);
@@ -60,19 +67,15 @@
                 todolist.push(todo.value);
             }
             localStorage.setItem('todolist',JSON.stringify(todolist));
-
             todo.value = '';
         }
+        
         let todolist = JSON.parse(localStorage.getItem('todolist'));
-        todolist.map(ele=>{
-            doAdd(ele);
-        })
-            // console.log(todolist)
-            // for (const temp of todolist) {
-            //     console.log(temp);
-            //     doAdd(temp);
-            // }
-       
+        if(todolist){
+            todolist.map(ele=>{
+                doAdd(ele);
+            })
+        }
     </script>
 </body>
 </html>
