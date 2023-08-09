@@ -1,10 +1,10 @@
-package com.shop.repository;
+package com.shop.shop.repository;
 
-import com.shop.dto.ItemSearchDto;
-import com.shop.entity.Item;
+import com.shop.shop.dto.ItemSearchDto;
+import com.shop.shop.entity.Item;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import com.shop.dto.MainItemDto;
+import com.shop.shop.dto.MainItemDto;
 
 public interface ItemRepositoryCustom {
 

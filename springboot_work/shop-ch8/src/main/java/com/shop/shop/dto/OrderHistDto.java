@@ -1,7 +1,7 @@
-package com.shop.dto;
+package com.shop.shop.dto;
 
-import com.shop.constant.OrderStatus;
-import com.shop.entity.Order;
+import com.shop.shop.constant.OrderStatus;
+import com.shop.shop.entity.Order;
 import lombok.Getter;
 import lombok.Setter;
 

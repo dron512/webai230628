@@ -1,7 +1,8 @@
-package com.shop.entity;
+package com.shop.shop.entity;
 
-import com.shop.constant.OrderStatus;
-import javax.persistence.*;
+import com.shop.shop.constant.OrderStatus;
+import jakarta.persistence.*;
+
 import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDateTime;

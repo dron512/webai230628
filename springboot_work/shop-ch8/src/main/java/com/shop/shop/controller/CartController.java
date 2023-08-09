@@ -1,6 +1,7 @@
-package com.shop.controller;
-import com.shop.dto.CartItemDto;
-import com.shop.service.CartService;
+package com.shop.shop.controller;
+import com.shop.shop.dto.CartItemDto;
+import com.shop.shop.service.CartService;
+import com.shop.shop.dto.CartDetailDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,6 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
-import com.shop.dto.CartDetailDto;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 
-import com.shop.dto.CartOrderDto;
+import com.shop.shop.dto.CartOrderDto;
 
 @Controller
 @RequiredArgsConstructor

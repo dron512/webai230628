@@ -1,12 +1,14 @@
-package com.shop.controller;
+package com.shop.shop.controller;
 
+import com.shop.shop.dto.ItemSearchDto;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.ui.Model;
-import com.shop.dto.ItemFormDto;
+import com.shop.shop.dto.ItemFormDto;
 
-import com.shop.service.ItemService;
+import com.shop.shop.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
@@ -16,10 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.PathVariable;
-import javax.persistence.EntityNotFoundException;
 
-import com.shop.dto.ItemSearchDto;
-import com.shop.entity.Item;
+
+import com.shop.shop.entity.Item;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

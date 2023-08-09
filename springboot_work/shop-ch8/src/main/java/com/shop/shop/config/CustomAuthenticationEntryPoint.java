@@ -1,4 +1,4 @@
-package com.shop.config;
+package com.shop.shop.config;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

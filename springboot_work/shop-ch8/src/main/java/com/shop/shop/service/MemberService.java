@@ -1,8 +1,9 @@
-package com.shop.service;
+package com.shop.shop.service;
 
-import com.shop.entity.Member;
-import com.shop.repository.MemberRepository;
+import com.shop.shop.entity.Member;
+import com.shop.shop.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,10 +14,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 @Service
 @Transactional
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class MemberService implements UserDetailsService {
 
-    private final MemberRepository memberRepository;
+    @Autowired
+    private MemberRepository memberRepository;
 
     public Member saveMember(Member member){
         validateDuplicateMember(member);

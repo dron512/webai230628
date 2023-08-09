@@ -1,18 +1,17 @@
-package com.shop.controller;
+package com.shop.shop.controller;
 
+import com.shop.shop.dto.ItemSearchDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.shop.dto.ItemSearchDto;
-import com.shop.dto.MainItemDto;
-import com.shop.service.ItemService;
+import com.shop.shop.dto.MainItemDto;
+import com.shop.shop.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+
 import java.util.Optional;
 
 @Controller

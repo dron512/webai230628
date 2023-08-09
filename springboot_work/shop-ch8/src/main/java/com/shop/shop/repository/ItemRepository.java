@@ -1,6 +1,6 @@
-package com.shop.repository;
+package com.shop.shop.repository;
 
-import com.shop.entity.Item;
+import com.shop.shop.entity.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -10,8 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
-public interface ItemRepository extends JpaRepository<Item, Long>,
-        QuerydslPredicateExecutor<Item>, ItemRepositoryCustom {
+public interface ItemRepository extends JpaRepository<Item, Long>,ItemRepositoryCustom{
 
     List<Item> findByItemNm(String itemNm);
 

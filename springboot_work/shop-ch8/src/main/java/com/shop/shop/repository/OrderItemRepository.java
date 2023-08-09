@@ -1,6 +1,6 @@
-package com.shop.repository;
+package com.shop.shop.repository;
 
-import com.shop.entity.OrderItem;
+import com.shop.shop.entity.OrderItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {

@@ -1,7 +1,8 @@
-package com.shop.controller;
+package com.shop.shop.controller;
 
-import com.shop.dto.OrderDto;
-import com.shop.service.OrderService;
+import com.shop.shop.dto.OrderDto;
+import com.shop.shop.service.OrderService;
+import com.shop.shop.dto.OrderHistDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,6 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import com.shop.dto.OrderHistDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

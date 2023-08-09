@@ -1,15 +1,17 @@
 package com.shop.service;
 
-import com.shop.constant.ItemSellStatus;
-import com.shop.constant.OrderStatus;
-import com.shop.dto.OrderDto;
-import com.shop.entity.Item;
-import com.shop.entity.Member;
-import com.shop.entity.Order;
-import com.shop.entity.OrderItem;
-import com.shop.repository.ItemRepository;
-import com.shop.repository.MemberRepository;
-import com.shop.repository.OrderRepository;
+import com.shop.shop.constant.ItemSellStatus;
+import com.shop.shop.constant.OrderStatus;
+import com.shop.shop.dto.OrderDto;
+import com.shop.shop.entity.Item;
+import com.shop.shop.entity.Member;
+import com.shop.shop.entity.Order;
+import com.shop.shop.entity.OrderItem;
+import com.shop.shop.repository.ItemRepository;
+import com.shop.shop.repository.MemberRepository;
+import com.shop.shop.repository.OrderRepository;
+import com.shop.shop.service.OrderService;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -1,14 +1,15 @@
-package com.shop.controller;
+package com.shop.shop.controller;
 
-import com.shop.dto.MemberFormDto;
-import com.shop.service.MemberService;
+import com.shop.shop.dto.MemberFormDto;
+import com.shop.shop.service.MemberService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.shop.entity.Member;
+import com.shop.shop.entity.Member;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -56,6 +57,12 @@ public class MemberController {
     public String loginError(Model model){
         model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호를 확인해주세요");
         return "/member/memberLoginForm";
+    }
+
+    @GetMapping(value = "logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "redirect:/";
     }
 
 }

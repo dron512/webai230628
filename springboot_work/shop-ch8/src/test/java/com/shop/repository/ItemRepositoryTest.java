@@ -1,7 +1,10 @@
 package com.shop.repository;
 
-import com.shop.constant.ItemSellStatus;
-import com.shop.entity.Item;
+import com.shop.shop.constant.ItemSellStatus;
+import com.shop.shop.entity.Item;
+import com.shop.shop.repository.ItemRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +17,7 @@ import java.util.List;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.querydsl.jpa.impl.JPAQuery;
-import com.shop.entity.QItem;
-import javax.persistence.PersistenceContext;
-import javax.persistence.EntityManager;
+import com.shop.shop.entity.QItem;
 
 import com.querydsl.core.BooleanBuilder;
 import org.springframework.data.domain.Page;
@@ -176,7 +177,7 @@ class ItemRepositoryTest {
         }
 
         Pageable pageable = PageRequest.of(0, 5);
-        Page<Item> itemPagingResult = itemRepository.findAll(booleanBuilder, pageable);
+        Page<Item> itemPagingResult = itemRepository.findAll(pageable);
         System.out.println("total elements : " + itemPagingResult. getTotalElements ());
 
         List<Item> resultItemList = itemPagingResult.getContent();

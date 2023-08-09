@@ -1,9 +1,9 @@
-package com.shop.entity;
+package com.shop.shop.entity;
 
-import com.shop.constant.Role;
-import com.shop.dto.MemberFormDto;
-import javax.persistence.*;
+import com.shop.shop.constant.Role;
+import com.shop.shop.dto.MemberFormDto;
 
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

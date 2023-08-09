@@ -1,8 +1,8 @@
-package com.shop.entity;
+package com.shop.shop.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import javax.persistence.*;
+import jakarta.persistence.*;
 @Entity
 @Getter @Setter
 @Table(name="cart_item")

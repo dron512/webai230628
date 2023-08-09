@@ -1,14 +1,14 @@
-package com.shop.service;
+package com.shop.shop.service;
 
-import com.shop.entity.ItemImg;
-import com.shop.repository.ItemImgRepository;
+import com.shop.shop.entity.ItemImg;
+import com.shop.shop.repository.ItemImgRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;
-import javax.persistence.EntityNotFoundException;
 
 @Service
 @RequiredArgsConstructor

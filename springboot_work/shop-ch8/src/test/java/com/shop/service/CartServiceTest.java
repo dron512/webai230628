@@ -1,21 +1,21 @@
 package com.shop.service;
 
-import com.shop.constant.ItemSellStatus;
-import com.shop.dto.CartItemDto;
-import com.shop.entity.CartItem;
-import com.shop.entity.Item;
-import com.shop.entity.Member;
-import com.shop.repository.CartItemRepository;
-import com.shop.repository.ItemRepository;
-import com.shop.repository.MemberRepository;
+import com.shop.shop.constant.ItemSellStatus;
+import com.shop.shop.dto.CartItemDto;
+import com.shop.shop.entity.CartItem;
+import com.shop.shop.entity.Item;
+import com.shop.shop.entity.Member;
+import com.shop.shop.repository.CartItemRepository;
+import com.shop.shop.repository.ItemRepository;
+import com.shop.shop.repository.MemberRepository;
+import com.shop.shop.service.CartService;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityNotFoundException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

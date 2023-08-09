@@ -1,26 +1,26 @@
-package com.shop.service;
+package com.shop.shop.service;
 
-import com.shop.dto.CartItemDto;
-import com.shop.entity.Cart;
-import com.shop.entity.CartItem;
-import com.shop.entity.Item;
-import com.shop.entity.Member;
-import com.shop.repository.CartItemRepository;
-import com.shop.repository.CartRepository;
-import com.shop.repository.ItemRepository;
-import com.shop.repository.MemberRepository;
+import com.shop.shop.dto.CartItemDto;
+import com.shop.shop.entity.Cart;
+import com.shop.shop.entity.CartItem;
+import com.shop.shop.entity.Item;
+import com.shop.shop.entity.Member;
+import com.shop.shop.repository.CartItemRepository;
+import com.shop.shop.repository.CartRepository;
+import com.shop.shop.repository.ItemRepository;
+import com.shop.shop.repository.MemberRepository;
+import com.shop.shop.dto.CartDetailDto;
+import com.shop.shop.dto.CartOrderDto;
+import com.shop.shop.dto.OrderDto;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import javax.persistence.EntityNotFoundException;
 
-import com.shop.dto.CartDetailDto;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.thymeleaf.util.StringUtils;
-import com.shop.dto.CartOrderDto;
-import com.shop.dto.OrderDto;
 
 @Service
 @RequiredArgsConstructor

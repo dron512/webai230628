@@ -1,21 +1,21 @@
-package com.shop.service;
+package com.shop.shop.service;
 
-import com.shop.dto.OrderDto;
-import com.shop.entity.*;
-import com.shop.repository.ItemRepository;
-import com.shop.repository.MemberRepository;
-import com.shop.repository.OrderRepository;
+import com.shop.shop.dto.OrderDto;
+import com.shop.shop.entity.*;
+import com.shop.shop.repository.ItemRepository;
+import com.shop.shop.repository.MemberRepository;
+import com.shop.shop.repository.OrderRepository;
+import com.shop.shop.dto.OrderHistDto;
+import com.shop.shop.dto.OrderItemDto;
+import com.shop.shop.repository.ItemImgRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.shop.dto.OrderHistDto;
-import com.shop.dto.OrderItemDto;
-import com.shop.repository.ItemImgRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;

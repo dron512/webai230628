@@ -1,10 +1,12 @@
-package com.shop.service;
+package com.shop.shop.service;
 
-import com.shop.dto.ItemFormDto;
-import com.shop.entity.Item;
-import com.shop.entity.ItemImg;
-import com.shop.repository.ItemImgRepository;
-import com.shop.repository.ItemRepository;
+import com.shop.shop.dto.ItemFormDto;
+import com.shop.shop.entity.Item;
+import com.shop.shop.entity.ItemImg;
+import com.shop.shop.repository.ItemImgRepository;
+import com.shop.shop.repository.ItemRepository;
+import com.shop.shop.dto.ItemSearchDto;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,15 +14,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-import com.shop.dto.ItemImgDto;
-import javax.persistence.EntityNotFoundException;
+import com.shop.shop.dto.ItemImgDto;
 import java.util.ArrayList;
 
-import com.shop.dto.ItemSearchDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.shop.dto.MainItemDto;
+import com.shop.shop.dto.MainItemDto;
 
 @Service
 @Transactional

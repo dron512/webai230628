@@ -1,4 +1,4 @@
-package com.shop.dto;
+package com.shop.shop.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;

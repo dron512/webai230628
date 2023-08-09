@@ -1,21 +1,22 @@
-package com.shop.repository;
+package com.shop.shop.repository;
 
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.shop.constant.ItemSellStatus;
-import com.shop.dto.ItemSearchDto;
-import com.shop.dto.MainItemDto;
-import com.shop.dto.QMainItemDto;
-import com.shop.entity.Item;
-import com.shop.entity.QItem;
-import com.shop.entity.QItemImg;
+import com.shop.shop.constant.ItemSellStatus;
+import com.shop.shop.dto.ItemSearchDto;
+import com.shop.shop.dto.MainItemDto;
+import com.shop.shop.dto.QMainItemDto;
+import com.shop.shop.entity.Item;
+import com.shop.shop.entity.QItem;
+import com.shop.shop.entity.QItemImg;
+import jakarta.persistence.EntityManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Repository;
 import org.thymeleaf.util.StringUtils;
 
-import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 import java.util.List;
 

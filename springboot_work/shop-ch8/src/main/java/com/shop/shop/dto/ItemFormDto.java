@@ -1,7 +1,7 @@
-package com.shop.dto;
+package com.shop.shop.dto;
 
-import com.shop.constant.ItemSellStatus;
-import com.shop.entity.Item;
+import com.shop.shop.constant.ItemSellStatus;
+import com.shop.shop.entity.Item;
 import lombok.Getter;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;

@@ -1,13 +1,13 @@
-package com.shop.entity;
+package com.shop.shop.entity;
 
-import com.shop.constant.ItemSellStatus;
+import com.shop.shop.constant.ItemSellStatus;
+import com.shop.shop.exception.OutOfStockException;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.*;
-import com.shop.dto.ItemFormDto;
-import com.shop.exception.OutOfStockException;
+import jakarta.persistence.*;
+import com.shop.shop.dto.ItemFormDto;
 
 @Entity
 @Table(name="item")
