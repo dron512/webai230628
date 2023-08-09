@@ -1,0 +1,11 @@
+1. c:\user\kb\appData\Roming\npm 
+사용자 폴더에 npm,npm-cache 폴더 삭제
+2. npm install -g npm 
+글로벌 옵션으로 설치하면 사용자 폴더에 재설치
+3. npx create-react-app ex02
+프로젝트 생성
+
+리액트..
+
+스프링부트 REST-Controller 와 연계해서 
+게시판,회원가입 해보도록 하겠습니다.
