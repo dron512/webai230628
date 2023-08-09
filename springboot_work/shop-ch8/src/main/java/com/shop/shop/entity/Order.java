@@ -1,9 +1,9 @@
 package com.shop.entity;
 
 import com.shop.constant.OrderStatus;
+import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
 import java.util.ArrayList;
