@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>로그인</title>
+</head>
+<body>
+<div>
+    <!--폼 로그인 영역 START-->
+    <form method="post" action="/login">
+        <h2>로그인</h2>
+
+        <!--아이디-->
+        <p>
+            <input type="text" id="username" name="username" placeholder="아이디" required autofocus>
+        </p>
+        <!--비밀번호-->
+        <p>
+            <input type="password" id="password" name="password" placeholder="비밀번호" required>
+        </p>
+
+        <!--csrf-->
+        <input name="_csrf" type="hidden"
+               value="iIL3ZRiYcy31xoMK6AIMfQZyRk720xDUlV95W8hx2sp-CnDVveDHBCisShvYo-Y42C84S2IUay_C63H5pWYbaq0Q7alHPBHm"/>
+
+        <button type="submit">로그인</button>
+    </form>
+    <!--폼 로그인 영역 END-->
+
+    <!--구글 로그인-->
+    <a href="/oauth2/authorize/google">Google 로그인</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,258 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "org.springframework.boot",
+    "module": "spring-boot-buildpack-platform",
+    "version": "3.1.2",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "7.6.2"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "com.fasterxml.jackson.core",
+          "module": "jackson-databind",
+          "version": {
+            "requires": "2.14.2"
+          }
+        },
+        {
+          "group": "com.fasterxml.jackson.module",
+          "module": "jackson-module-parameter-names",
+          "version": {
+            "requires": "2.14.2"
+          }
+        },
+        {
+          "group": "net.java.dev.jna",
+          "module": "jna-platform",
+          "version": {
+            "requires": "5.7.0"
+          }
+        },
+        {
+          "group": "org.apache.commons",
+          "module": "commons-compress",
+          "version": {
+            "requires": "1.21"
+          }
+        },
+        {
+          "group": "org.apache.httpcomponents.client5",
+          "module": "httpclient5",
+          "version": {
+            "requires": "5.2.1"
+          }
+        },
+        {
+          "group": "org.springframework",
+          "module": "spring-core",
+          "version": {
+            "requires": "6.0.11"
+          }
+        },
+        {
+          "group": "org.tomlj",
+          "module": "tomlj",
+          "version": {
+            "requires": "1.0.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "spring-boot-buildpack-platform-3.1.2.jar",
+          "url": "spring-boot-buildpack-platform-3.1.2.jar",
+          "size": 256275,
+          "sha512": "c220f2adc58d7602944faa5f5e000ec4da317e186c206261d0c77460682957ee55417d082d5dc273b76152ebd01c2179e33b1f184493fc0832f34c5cac026cbd",
+          "sha256": "3fbf3504befb14770291e934826eeb9007809c02e108aa1aae0313cf0599e01a",
+          "sha1": "92488717003fb3380737dd8fbe0951812a3db106",
+          "md5": "11e2693718aaad3f2ec47798670c506e"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "com.fasterxml.jackson.core",
+          "module": "jackson-databind",
+          "version": {
+            "requires": "2.14.2"
+          }
+        },
+        {
+          "group": "com.fasterxml.jackson.module",
+          "module": "jackson-module-parameter-names",
+          "version": {
+            "requires": "2.14.2"
+          }
+        },
+        {
+          "group": "net.java.dev.jna",
+          "module": "jna-platform",
+          "version": {
+            "requires": "5.7.0"
+          }
+        },
+        {
+          "group": "org.apache.commons",
+          "module": "commons-compress",
+          "version": {
+            "requires": "1.21"
+          }
+        },
+        {
+          "group": "org.apache.httpcomponents.client5",
+          "module": "httpclient5",
+          "version": {
+            "requires": "5.2.1"
+          }
+        },
+        {
+          "group": "org.springframework",
+          "module": "spring-core",
+          "version": {
+            "requires": "6.0.11"
+          }
+        },
+        {
+          "group": "org.tomlj",
+          "module": "tomlj",
+          "version": {
+            "requires": "1.0.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "spring-boot-buildpack-platform-3.1.2.jar",
+          "url": "spring-boot-buildpack-platform-3.1.2.jar",
+          "size": 256275,
+          "sha512": "c220f2adc58d7602944faa5f5e000ec4da317e186c206261d0c77460682957ee55417d082d5dc273b76152ebd01c2179e33b1f184493fc0832f34c5cac026cbd",
+          "sha256": "3fbf3504befb14770291e934826eeb9007809c02e108aa1aae0313cf0599e01a",
+          "sha1": "92488717003fb3380737dd8fbe0951812a3db106",
+          "md5": "11e2693718aaad3f2ec47798670c506e"
+        }
+      ]
+    },
+    {
+      "name": "javadocElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "javadoc",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "spring-boot-buildpack-platform-3.1.2-javadoc.jar",
+          "url": "spring-boot-buildpack-platform-3.1.2-javadoc.jar",
+          "size": 386209,
+          "sha512": "e16b4c2844ad02bde16c65d622926f70fbd63bf8f0cadc873b8c985036722805defe0adeacddf0543fd1315788efbb2bfc2485419e9def45b3cbe529b141a6d2",
+          "sha256": "c8535480fca285e49d5d151088690b2a2e47fb896d67edcb0fcf5d5f1e642f29",
+          "sha1": "1017403a7827a4c0d90ff021f23838e0913cf794",
+          "md5": "cf6674843eb66a2a89164dd44121c749"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "spring-boot-buildpack-platform-3.1.2-sources.jar",
+          "url": "spring-boot-buildpack-platform-3.1.2-sources.jar",
+          "size": 164714,
+          "sha512": "734b995545e0e99d617c7d5476353b4fc0ab69dc8543a13fcd924853e67ba81fdc2f4deec9c1b6a42f4f1fb129b06e0fe777c558fc0525433d40f103846183c3",
+          "sha256": "a5c2ee0b19101447eaac0163aab929fda02932fda2e11308506d1df714976b55",
+          "sha1": "f82d85bd3ad305685ed4d63f56b4d8b018b1037f",
+          "md5": "e869313a77e541167cc2caec5c79fd33"
+        }
+      ]
+    },
+    {
+      "name": "mavenOptionalApiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "files": [
+        {
+          "name": "spring-boot-buildpack-platform-3.1.2.jar",
+          "url": "spring-boot-buildpack-platform-3.1.2.jar",
+          "size": 256275,
+          "sha512": "c220f2adc58d7602944faa5f5e000ec4da317e186c206261d0c77460682957ee55417d082d5dc273b76152ebd01c2179e33b1f184493fc0832f34c5cac026cbd",
+          "sha256": "3fbf3504befb14770291e934826eeb9007809c02e108aa1aae0313cf0599e01a",
+          "sha1": "92488717003fb3380737dd8fbe0951812a3db106",
+          "md5": "11e2693718aaad3f2ec47798670c506e"
+        }
+      ],
+      "capabilities": [
+        {
+          "group": "org.springframework.boot",
+          "name": "spring-boot-buildpack-platform-maven-optional",
+          "version": "3.1.2"
+        }
+      ]
+    },
+    {
+      "name": "mavenOptionalRuntimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "spring-boot-buildpack-platform-3.1.2.jar",
+          "url": "spring-boot-buildpack-platform-3.1.2.jar",
+          "size": 256275,
+          "sha512": "c220f2adc58d7602944faa5f5e000ec4da317e186c206261d0c77460682957ee55417d082d5dc273b76152ebd01c2179e33b1f184493fc0832f34c5cac026cbd",
+          "sha256": "3fbf3504befb14770291e934826eeb9007809c02e108aa1aae0313cf0599e01a",
+          "sha1": "92488717003fb3380737dd8fbe0951812a3db106",
+          "md5": "11e2693718aaad3f2ec47798670c506e"
+        }
+      ],
+      "capabilities": [
+        {
+          "group": "org.springframework.boot",
+          "name": "spring-boot-buildpack-platform-maven-optional",
+          "version": "3.1.2"
+        }
+      ]
+    }
+  ]
+}

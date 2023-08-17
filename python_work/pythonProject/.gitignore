@@ -3,3 +3,4 @@
 pymlrev2-main
 *.pickle
 230802/*.h5
+*.exe

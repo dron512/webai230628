@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--csrf 처리-->
+    <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <!--csrf 처리-->
+    <title>Upload Test Page</title>
+</head>
+<body>
+
+<input name="uploadFiles" type="file" multiple>
+<button class="uploadBtn">Upload</button>
+
+<!-- JQuery -->
+<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+
+<script>
+
+    $('.uploadBtn').click(function () { // upload 버튼을 누르면
+        let formData = new FormData(); // form 객체를 생성하고
+        let inputFile = $("input[type='file']"); // 컨트롤러에서 사용하는 'uploadFiles'라는 이름으로 파일 데이터를 추가한다.
+        let files = inputFile[0].files;
+
+        // 다중 파일 선택 처리
+        for (let i=0;i<files.length;i++) {
+            console.log(files[i]);
+            formData.append("uploadFiles",files[i]);
+        } // End of For
+
+        // 실제 파일 업로드 처리
+        // upload ajax
+        $.ajax({
+            url: '/uploadAjax'
+            , processData: false
+            , contentType: false
+            // 파일 업로드를 위해 해당 속성은 무조건 false
+            // 파일 업로드는 'multipart/form-data' 타입을 사용하기 위한 용도이다.
+            , data: formData
+            , type: 'POST'
+            , dataType: 'json' // todo 화면 처리 해야 함
+            , beforeSend: function (xhr) { // csrf 처리
+            xhr.setRequestHeader($("meta[name='_csrf_header']").attr("content"), $("meta[name='_csrf']").attr("content"))
+        }
+            , success: function (result) {
+                console.log(result);
+                // todo 나중에 화면처리 해야함
+            }, error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus);
+            }
+        }); // End of Ajax
+    });
+
+
+
+</script>
+
+</body>
+</html>

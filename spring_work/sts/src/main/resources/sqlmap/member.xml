@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+
+	<select id="selectByloginId" parameterType="String" resultType="com.spring.dto.MemberDto">
+		select *
+		from member
+		where member_loginId = '${value}'
+		and member_withdrawDate is null
+	</select>
+	
+	<insert id="insertMember" parameterType="com.spring.dto.MemberDto">
+		insert into member
+		(
+			member_loginId
+			, member_password
+			, member_name
+			, member_tel
+			, member_email
+			, member_joinDate
+			, member_category
+		)
+		values
+		(
+			#{member_loginId}
+			, #{member_password}
+			, #{member_name}
+			, #{member_tel}
+			, #{member_email}
+			, NOW()
+			, #{member_category}
+		)
+	</insert>
+	
+	<update id="updateMember" parameterType="com.spring.dto.MemberDto">
+		update member 
+		set member_tel = #{member_tel}
+		, member_email = #{member_email}
+		where member_idx = #{member_idx}
+		and member_withdrawDate is null
+	</update>
+	
+	<update id="deleteMember" parameterType="Integer">
+		update member
+		set member_withdrawDate = NOW()
+		where member_idx = '${value}'
+		and member_withdrawDate is null
+	</update>
+	
+	<select id="selectByNameAndEmail" parameterType="com.spring.dto.MemberDto" resultType="string">
+		select member_loginId
+		from member
+		where member_name = #{member_name}
+		and member_email = #{member_email}
+		and member_withdrawDate is null
+	</select>
+	
+	<select id="selectByLoginIdAndEmail" parameterType="com.spring.dto.MemberDto" resultType="com.spring.dto.MemberDto">
+		select *
+		from member
+		where member_loginId = #{member_loginId}
+		and member_email = #{member_email}
+		and member_withdrawDate is null
+	</select>
+	
+	<update id="updatePw" parameterType="com.spring.dto.MemberDto">
+		update member
+		set member_password = #{member_password}
+		where member_loginId = #{member_loginId}
+	</update>
+	
+</mapper>

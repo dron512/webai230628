@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+  <th:block th:fragment="content">
+    <h1 class="mt-4">Board Register Page</h1>
+
+    <!--등록 화면 START-->
+    <form th:action="@{/board/register}" th:method="post">
+
+      <!--Title-->
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" class="form-control" name="title" placeholder="Enter Title">
+      </div>
+
+      <!--Content-->
+      <div class="form-group">
+        <label>Content</label>
+        <textarea class="form-control" name="content" rows="5"></textarea>
+      </div>
+
+      <!--todo Writer pk가 mno, email이 아님. 그리고 로그인 달면 유저만 글 작성 가능-->
+      <div class="form-group">
+        <label>Writer ID</label>
+        <input type="text" class="form-control" name="writerMno" placeholder="Enter Writer ID">
+      </div>
+      <!--Submit Button-->
+      <button type="submit" class="btn btn-primary">Submit</button>
+
+    </form>
+    <!--등록 화면 END-->
+
+  </th:block>
+</th:block>
+</html>
