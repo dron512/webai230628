@@ -39,38 +39,45 @@ public class MemberLoginSuccessHandler implements AuthenticationSuccessHandler {
         log.info("authMemberDTO -> " + authMemberDTO);
         log.info("authentication.getDetails().toString() -> " + authentication.getAuthorities().toString());
 
-        // 소셜 회원인지 확인
-        boolean fromSocial = authMemberDTO.isFromSocial();
+        // 자체회원인지 구글회원 확인할 때 필요한 변수들
+        String path = authMemberDTO.getPath(); // form(자체), google(구글)
+        boolean passwordChecker = passwordEncoder.matches("@@GOOGLE@@", authMemberDTO.getPassword());
 
-        log.info("Need Modify Member?" + fromSocial);
-
-        request.setAttribute("AuthMemberDTO",authMemberDTO);
-
-        redirectStrategy.sendRedirect(request,response,"/memeber/snsjoin");
+        log.info("This Member is from " + path);
 
 
-        // 비밀번호가 "1111"과 일치하는지 확인
-        boolean passwordResult = passwordEncoder.matches("1111", authMemberDTO.getPassword());
-//
-//        if(fromSocial && passwordResult) { // 소셜 회원이고 비밀번호가 "1111"이라면
-//            // todo sub이 중복이 아닐때는 자동회원가입처리
-//            // sub이 중복일 때는 로그인 한 적이 있고, 회원가입이 되어진 적이 있기 때문에
-//            // 얘는 바로 인증 처리.....
-//            redirectStrategy.sendRedirect(request,response,"/sample/member/modify?from=social");
-//            // 일단 화면 대충 설정만 해둠 헤ㅔ헿..신난다
-//            // 회원가입 페이지로 보내면 될 듯
-//        }
-//
-//
-//        // 폼 로그인 방식인 경우 분기 처리
-//        if(!fromSocial) {
-//            if(authentication.getAuthorities().toString().equals("[ROLE_STUDENT]")) {
-//                redirectStrategy.sendRedirect(request,response,"/sample/student");
-//            } else if (authentication.getAuthorities().toString().equals("[ROLE_TEACHER]")) {
-//                redirectStrategy.sendRedirect(request,response,"/sample/teacher");
-//            } else if (authentication.getAuthorities().toString().equals("[ROLE_ADMIN]")) {
-//                redirectStrategy.sendRedirect(request,response,"/sample/admin");
-//            }
-//        }
+        // 자체 회원인지 Google 회원인지 확인
+        if (path.equals("form")) { // 자체 회원, authentication.getAuthorities().toString().equals("[ROLE_STUDENT]")
+            if (authentication.getAuthorities().contains("STUDENT")) {
+                redirectStrategy.sendRedirect(request, response, "/student");
+            } else if (authentication.getAuthorities().contains("TEACHER")) {
+                redirectStrategy.sendRedirect(request, response, "/teacher");
+            } else if (authentication.getAuthorities().contains("ADMIN")) {
+                redirectStrategy.sendRedirect(request, response, "/admin");
+            } else if (authentication.getAuthorities().contains("MANAGER")) {
+                redirectStrategy.sendRedirect(request, response, "/manager");
+            }
+        }
+
+        if (path.equals("google")) { // 소셜 회원
+            if(!passwordChecker) {
+                if (authentication.getAuthorities().contains("STUDENT")) {
+                    redirectStrategy.sendRedirect(request, response, "/student");
+                } else if (authentication.getAuthorities().contains("TEACHER")) {
+                    redirectStrategy.sendRedirect(request, response, "/teacher");
+                } else if (authentication.getAuthorities().contains("ADMIN")) {
+                    redirectStrategy.sendRedirect(request, response, "/admin");
+                } else if (authentication.getAuthorities().contains("MANAGER")) {
+                    redirectStrategy.sendRedirect(request, response, "/manager");
+                } else if (authentication.getAuthorities().contains("MEMBER")) {
+                    redirectStrategy.sendRedirect(request, response, "/teacher");
+                }
+            }
+            if(passwordChecker) {
+                request.setAttribute("AuthMemberDTO",authMemberDTO);
+                redirectStrategy.sendRedirect(request,response,"/member/sign?path=google");
+            }
+        }
+
     }
 }

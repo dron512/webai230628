@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ko-kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>로그인</title>
+    <head th:replace="~{/frags/import::importfrag}"></head>
+</head>
+<body>
+<div class="container">
+    <form class="form-signin" method="post" action="/login">
+        <h2 class="form-signin-heading">로그인</h2>
+        <input type="text" name="username" class="form-control" placeholder="아이디">
+        <input type="password" name="password" class="form-control" placeholder="비밀번호">
+        <!--csrf-->
+        <input name="_csrf" type="hidden"
+               value="WnsqPYBn2YFMNSDENd8ZGH5ko2sXOy7DbJVeQH41MuwVjIc3YhhLD-FXvbFhB0LxV_Iteh1SjgojCkvuDaZqIUdRU4hwvuEP">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
+    </form>
+    <a href="/oauth2/authorize/google">Google 로그인</a>
+    <a href="/member/sign?path=form">회원가입</a>
+</div>
+</body>
+</html>

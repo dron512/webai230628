@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Summernote without Bootstrap</title>
+    <!--summernote 추가-->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="/plugin/summernote/summernote-lite.js"></script>
+    <script src="/plugin/summernote/lang/summernote-ko-KR.js"></script>
+    <link rel="stylesheet" href="/plugin/summernote/summernote-lite.css">
+    <!--summernote 추가-->
+</head>
+<body>
+<div id="summernote"></div>
+<script>
+    // summernote
+    $(document).ready(function () {
+        $('#summernote').summernote({
+            placeholder: 'Hello stand alone ui',
+            tabsize: 2,                  // tabsize
+            height: 300,                 // 에디터 높이
+            minHeight: null,             // 최소 높이
+            maxHeight: null,             // 최대 높이
+            focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+            lang: "ko-KR",					// 한글 설정
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ],
+
+            callbacks: {	// 여기 부분이 이미지를 첨부하는 부분
+                onImageUpload: function (files) {
+                    // 파일 첨부를 하는 순간 이벤트 실행
+                    // files type이 file인 걸 다 가져옴.
+                    // input type file할 경우 파일첨부가 뜸
+                    uploadSummernoteImageFile(files[0], this);
+                    // 배열로 가져옴, files[0] 0 : index
+                    // this 에디터를 그대로 가져옴
+                },
+                onPaste: function (e) {
+                    var clipboardData = e.originalEvent.clipboardData;
+                    if (clipboardData && clipboardData.items && clipboardData.items.length) {
+                        var item = clipboardData.items[0];
+                        if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
+                            e.preventDefault();
+                        }
+                    }
+                }
+            }
+        });
+    });
+
+    function uploadSummernoteImageFile(file, editor) {
+        var data = new FormData(); // form 태그를 임의로 만들어서
+        data.append("file", file); // 키값 file로 input태그(input엔 첨부한 이미지 파일이 있음)를 집어 넣음
+
+        $.ajax({
+            data: data
+            , type: "POST"
+            , url: "/image/upload"
+            , enctype: "multipart/form-data"
+            , contentType: false
+            , processData: false
+            , beforeSend: function (xhr) {
+                xhr.setRequestHeader($("meta[name='_csrf_header']").attr("content"), $("meta[name='_csrf']").attr("content"))
+            }
+            , error: function (request, error) {
+                alert('서비스 호출에 실패하였습니다.');
+                console.log("code = " + request.status);
+                console.log("message = " + request.responseText);
+                console.log("error = " + error);
+            }
+            , success: function (data) { // data = response
+                //항상 업로드된 파일의 url이 있어야 한다.
+                $(editor).summernote('insertImage', data.url);
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

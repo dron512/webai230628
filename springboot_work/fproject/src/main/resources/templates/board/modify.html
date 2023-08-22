@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic::setContent(~{this::content})}">
+    <th:block th:fragment="content">
+        <h1>Board Modify Page</h1>
+        <!-- form 시작 -->
+        <form action="/board/modify" method="post">
+            <!--페이지 번호-->
+            <input type="hidden" name="page" th:value="${requestDTO.page}">
+            <input type="hidden" name="type" th:value="${requestDTO.type}">
+            <input type="hidden" name="keyword" th:value="${requestDTO.keyword}">
+
+            <!--수정 화면은 조회 화면과 거의 동일함-->
+            <!--BNO-->
+            <div class="form-group">
+                <label>BNO</label>
+                <input type="text" class="form-control" name="bno" th:value="${dto.bno}" readonly>
+            </div>
+
+            <!--Title-->
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" class="form-control" name="title" th:value="${dto.title}">
+            </div>
+
+            <!--Content-->
+            <div class="form-group">
+                <label>Content</label>
+                <textarea class="form-control" name="content" rows="5">[[${dto.content}]]</textarea>
+            </div>
+
+            <!--Writer Name-->
+            <div class="form-group">
+                <label>Writer</label>
+                <input type="text" class="form-control" name="writerName" th:value="${dto.writerName}" readonly>
+            </div>
+
+            <!--RegDate-->
+            <div class="form-group">
+                <label>RegDate</label>
+                <input type="text" class="form-control" name="regdate"
+                       th:value="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
+            </div>
+
+            <!--ModDate-->
+            <div class="form-group">
+                <label>ModDate</label>
+                <input type="text" class="form-control" name="moddate"
+                       th:value="${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
+            </div>
+        </form>
+        <!-- form 끝 -->
+
+        <!-- button -->
+        <button type="button" class="btn btn-primary modifyBtn">Modify</button>
+        <button type="button" class="btn btn-info listBtn">List</button>
+        <button type="button" class="btn btn-warning removeBtn">Remove</button>
+
+        <!-- button script 처리 -->
+        <script th:inline="javascript">
+            let actionForm = $('form'); // form 태그 객체
+
+            // 삭제 버튼 처리
+            $('.removeBtn').click(function () { // 삭제 버튼을 누르면
+                if(!confirm("삭제하시겠습니까?")) {
+                    return;
+                }
+                actionForm // form 태그 속성을 아래와 같이 바꾸고
+                    .attr("action", "/board/remove")
+                    .attr("method", "post");
+                actionForm.submit(); // submit 함
+            });
+
+            // 수정 버튼 처리
+            $('.modifyBtn').click(function () {
+                if (!confirm("수정하시겠습니까?")) {
+                    return;
+                }
+                actionForm
+                    .attr("action", "/board/modify")
+                    .attr("method", "post");
+                actionForm.submit();
+            });
+
+            // 목록 버튼 처리
+            $('.listBtn').click(function () {
+                let page = $("input[name=page]");
+                let type = $("input[name=type]");
+                let keyword = $("input[name=keyword]");
+
+                actionForm.empty(); // remove 랑 헷갈리지 말자
+
+                actionForm.append(page);
+                actionForm.append(type);
+                actionForm.append(keyword);
+
+                actionForm
+                    .attr("action","/board/list")
+                    .attr("method","get");
+
+                actionForm.submit();
+            });
+
+
+        </script>
+    </th:block>
+
+</th:block>
+
+</html>

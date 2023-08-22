@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<th:block th:replace="~{/layout/basic::setContent(~{this::content})}">
+    <th:block th:fragment="content">
+        <!--Page Title & Register Button-->
+        <h1 class="m-4">Course List Page
+            <span>
+                <a th:href="@{/course/register}">
+                    <button type="button" class="btn btn-outline-primary">Register</button>
+                </a>
+            </span>
+        </h1>
+
+        <!--Page-->
+        <form action="/course/list" method="get" id="searchForm">
+            <input type="hidden" name="page" value="1">
+        </form>
+
+        <!--Course List-->
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">과정명</th>
+                <th scope="col">교육기간</th>
+                <th scope="col">강의계획서</th>
+            </tr>
+            </thead>
+
+            <tbody>
+                <tr th:each="dto : ${result.dtoList}">
+                    <!--과정 index-->
+                    <th scope="row">
+                        <a th:href="@{/course/read(courseIdx=${dto.courseIdx}, page=${result.page})}">
+                            [[${dto.courseIdx}]]
+                        </a>
+                    </th>
+                    <!--과정명-->
+                    <td>
+                        [[${dto.courseName}]]
+                    </td>
+                    <!--교육기간-->
+                    <td>
+                        [[${#temporals.format(dto.startDate, 'yyyy/MM/dd')}]] ~
+                        [[${#temporals.format(dto.endDate, 'yyyy/MM/dd')}]]
+                    </td>
+                    <!--강의계획서-->
+                    <td>
+                        <a th:if="${dto.syllabusDTOList.size()>0&& dto.syllabusDTOList[0].syllabusFilePath !=null}"
+                           th:href="|/display?fileName=${dto.syllabusDTOList[0].getSyllabusURL()}|">
+                            <button type="button" class="btn btn-outline-primary">다운로드</button>
+                        </a>
+                    </td>
+
+                </tr>
+            </tbody>
+
+        </table>
+
+        <script th:inline="javascript">
+
+        </script>
+
+
+    </th:block>
+</th:block>
+
+</html>

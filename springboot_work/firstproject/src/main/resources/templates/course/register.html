@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<th:block th:replace="~{/layout/basic::setContent(~{this::content})}">
+    <th:block th:fragment="content">
+        <h1 class="mt-4">Course Register Page</h1>
+        <form th:action="@{/course/register}" th:method="post">
+            <div class="form-group col-4">
+                <label>Course Name</label>
+                <input type="text" class="form-control" name="courseName"
+                       placeholder="Enter Course Name">
+
+                <label>Course Start Date</label>
+                <input type="date" class="form-control" name="startDate">
+
+                <label>Course End Date</label>
+                <input type="date" class="form-control" name="endDate">
+
+                <div class="form-group fileForm">
+                    <label>Syllabus Files</label>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input files" id="fileInput" multiple>
+                        <label class="custom-file-label" data-browse="Browse"></label>
+                    </div>
+                </div>
+
+                <!--input hidden tag-->
+                <div class="box">
+
+                </div>
+
+                <!--등록 버튼-->
+                <button type="submit" class="btn btn-primary">등록</button>
+                <!--취소 버튼-->
+                <a th:href="@{/course/list}">
+                    <button type="button" class="btn btn-secondary">취소</button>
+                </a>
+            </div>
+        </form>
+        <!--업로드 결과 출력 부분-->
+        <div class="uploadResult">
+            <ul>
+
+            </ul>
+        </div>
+
+        <!--스타일 처리-->
+        <style>
+            .uploadResult {
+                /*width: 100%;*/
+                /*background-color: lightgrey;*/
+                margin-top: 10px;
+            }
+
+            .uploadResult ul {
+                display: flex;
+                flex-flow: row;
+                /*justify-content: center;*/
+                align-items: center;
+                vertical-align: top;
+                overflow: auto;
+            }
+
+            .uploadResult ul li {
+                list-style: none;
+                padding: 10px;
+                margin-left: 2em;
+            }
+        </style>
+
+        <!--스크립트 처리-->
+        <script>
+
+            $(document).ready(function (e) {
+                let regexp = new RegExp("(.*?)\.(exe|sh|zip|alz|tiff)$"); // 파일 확장자 정규식
+                let maxSize = 10485760; // 최대 파일 크기 10MB
+
+                function checkExtension(fileName, fileSize) { // 파일 확장자, 크기 확인 함수
+                    if (fileSize > maxSize) {
+                        alert("업로드 가능한 최대 파일 크기는 10MB입니다.");
+                        return false;
+                    }
+
+                    if (regexp.test(fileName)) {
+                        alert("해당 파일은 업로드 할 수 없습니다.");
+                        return false;
+                    }
+
+                    return true;
+                }
+
+
+                // 업로드 결과 화면 처리
+                function showResult(uploadResultArr) { // 화면 처리
+                    let uploadUL = $(".uploadResult ul"); // 업로드 결과 출력할 부분
+                    let str = "";
+
+                    $(uploadResultArr).each(function (i, obj) {
+                        str += "<li data-name='" + obj.fileName + "' data-path='" + obj.folderPath + "' data-uuid='" + obj.uuid + "'>";
+                        str += " <div>";
+                        str += "<b>" + obj.fileName + "</b>"
+                        str += "<button type='button' data-file=\'" + obj.url + "\' " + "class='btn btn-warning btn-sm'><b>X</b></button><br>";
+                        str += "</div>";
+                        str += "</li>";
+                    })
+                    console.log(str);
+                    // 업로드 결과 출력 부분에 append
+                    uploadUL.append(str);
+
+                }
+
+
+                $('.custom-file-input').on("change", function () {
+
+                    let fileName = $(this).val().split("\\").pop();
+                    $(this).siblings(".custom-file-label").addClass("seleted").html(fileName);
+
+                    let formData = new FormData(); // form
+
+                    let inputFile = $(this);
+
+                    let files = inputFile[0].files;
+
+                    let appended = false;
+
+                    // 다중 파일 선택 처리
+                    for (let i = 0; i < files.length; i++) {
+                        if (!checkExtension(files[i].name, files[i].size)) { // 파일 확장자, 크기 확인
+                            return false;
+                        }
+                        console.log(files[i]);
+
+                        formData.append("uploadFiles", files[i]);
+                        appended = true;
+                    }
+
+                    if (!appended) {
+                        return;
+                    } // appended = false 이면 upload 하지 않음
+
+                    for (let value of formData.values()) { // formData 값을 콘솔창에 출력
+                        console.log(value);
+                    }
+
+                    // 실제 업로드 처리
+                    // upload ajax 처리
+                    $.ajax({
+                        url: '/uploadAjax'
+                        , processData: false
+                        , contentType: false
+                        // 파일 업로드를 위해 해당 속성은 무조건 false
+                        // 파일 업로드는 'multipart/form-data' 타입을 사용하기 위한 용도이다.
+                        , data: formData
+                        , type: 'POST'
+                        , dataType: 'json'
+                        , beforeSend: function (xhr) { // csrf 처리
+                            xhr.setRequestHeader($("meta[name='_csrf_header']").attr("content"), $("meta[name='_csrf']").attr("content"))
+                        }
+                        , success: function (result) {
+                            console.log(result);
+                            // 업로드한 파일 화면에 보이도록 처리
+                            showResult(result);
+
+                        }, error: function (jqXHR, textStatus, errorThrown) {
+                            console.log(textStatus);
+                        }
+                    }); // $.ajax
+                }); // end change event
+
+
+                // 파일 삭제 처리
+                $(".uploadResult").on("click", "li button", function (e) {
+                    console.log("delete file");
+
+                    let targetFile = $(this).data("file"); // url
+
+                    let targetLi = $(this).closest("li");
+
+                    $.ajax({
+                        url: '/removeFile'
+                        , data: {fileName: targetFile}
+                        , dataType: 'text'
+                        , type: 'POST'
+                        , beforeSend: function (xhr) { // csrf 처리
+                            xhr.setRequestHeader($("meta[name='_csrf_header']").attr("content"), $("meta[name='_csrf']").attr("content"))
+                        }
+                        , success: function (result) {
+                            console.log(result);
+                            targetLi.remove();
+                        }
+                    }); // removeFile $.ajax
+                }); // end click event
+
+                // todo prevent submit
+                $(".btn-primary").on("click", function (e) {
+                    e.preventDefault();
+
+                    let str = "";
+
+                    $(".uploadResult li").each(function (i, obj) {
+                        let target = $(obj);
+
+                        str += "<input type='hidden' name='syllabusDTOList["+i+"].syllabusFileName' value='"+target.data('name')+"'>";
+                        str += "<input type='hidden' name='syllabusDTOList["+i+"].syllabusFilePath' value='"+target.data('path')+"'>";
+                        str += "<input type='hidden' name='syllabusDTOList["+i+"].uuid' value='"+target.data('uuid')+"'>";
+
+                        // data 속성값들을 box 영역에 input type hidden 으로 넣어서
+                        // form 을 전송한다!
+                        $(".box").html(str);
+
+                        $("form").submit();
+                    })
+
+                }); // end submit button
+
+            }); // document ready
+
+
+        </script>
+
+    </th:block>
+</th:block>
+
+</html>

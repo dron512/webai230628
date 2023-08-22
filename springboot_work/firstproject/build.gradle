@@ -47,20 +47,23 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+    // validation 추가
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
 
-    //querydsl 추가
+    // querydsl 추가
     implementation "com.querydsl:querydsl-jpa:${queryDslVersion}:jakarta"
     annotationProcessor(
-
             "jakarta.persistence:jakarta.persistence-api",
-
             "jakarta.annotation:jakarta.annotation-api",
-
             "com.querydsl:querydsl-apt:${queryDslVersion}:jakarta")
-
-
     // thymeleaf-extras-springsecurity5: Thymeleaf에서 Spring Security를 이용하기 위해 필요한 라이브러리
-    implementation group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5', version: '3.1.1.RELEASE'
+//    implementation group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5', version: '3.1.1.RELEASE'
+    // test 환경 Lombok @Log4j 설정
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+
+    testImplementation 'org.mockito:mockito-core:4.2.0'
+
 }
 
 tasks.named('test') {
@@ -82,4 +85,4 @@ sourceSets {
     }
 }
 
-compileJava.dependsOn('clean')
+//compileJava.dependsOn('clean')

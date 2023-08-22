@@ -24,6 +24,7 @@ public class MemberOAuth2UserDetailsService extends DefaultOAuth2UserService {
 
     // 필요한 객체를 주입받는 방식으로 변경
     private final MemberRepository memberRepository;
+
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -36,7 +37,7 @@ public class MemberOAuth2UserDetailsService extends DefaultOAuth2UserService {
         // 소셜 로그인한 사용자 정보를 조회
         String clientName = userRequest.getClientRegistration().getClientName();
 
-        log.info("clientName: " + clientName); // Google로 출력
+        log.info("clientName: " + clientName); // Google로 출력된다.
         log.info("AdditionalParameters: " + userRequest.getAdditionalParameters());
 
         OAuth2User oAuth2User = super.loadUser(userRequest);
@@ -56,7 +57,7 @@ public class MemberOAuth2UserDetailsService extends DefaultOAuth2UserService {
         // loadUser() 에서 사용하는 OAuth2UserRequest 는 현재 어떤 서비스를 통해서 로그인이 이루어졌는지 알아내고
         // 전달된 값들을 추출할 수 있는 데이터를 Map<String, Object> 의 형태로 사용할 수 있다.
         // key:value
-        // sub:109522661181196062190 -> 식별키 아아.. 회원가입이
+        // sub:109522661181196062190 -> 식별키를 loginId로 설정
         // 가입경로+"-"+sub..-> 회원 아이디를 이걸로 처리
         // name:JH K
         // given_name:JH
@@ -66,51 +67,62 @@ public class MemberOAuth2UserDetailsService extends DefaultOAuth2UserService {
         // email_verified:true
         // locale:ko
 
-        // 이메일을 활용한 회원가입 처리
-        String loginId = null;
+        // 고유식별키(sub)를 활용한 회원가입 처리
+        String sub = null;
 
         if(clientName.equals("Google")) { // 구글 로그인을 사용할 경우
-            loginId = oAuth2User.getAttribute("email");
+            sub = oAuth2User.getAttribute("sub");
         }
 
-        log.info("loginId" + loginId);
+        log.info("sub: " + sub);
 
-        // 이따가 사용
-        /* Member member = saveSocialMember(loginId); // 해당 클래스에 선언된 saveSocialMember() method 확인할 것
-        return oAuth2User;*/
+        // 회원 정보가 있는지 조회(구글회원: google)
+        Optional<Member> result = memberRepository.findByLoginId("Google-"+sub, "google");
 
-        Member member = saveSocialMember(loginId);
-        
-        //인증 달아주는건데
 
-        AuthMemberDTO authMemberDTO = new AuthMemberDTO(
-                member.getLoginId()
-                , member.getPassword()
-                ,true
-                , member.getRoleSet().stream().map(role -> new SimpleGrantedAuthority("ROLE_"+ role.name())).collect(Collectors.toList())
-                , oAuth2User.getAttributes());
+        if (result.isEmpty()) {
+            // 가입된 회원 정보가 없으면 DB에 save 후 인증 처리
+            Member member = saveSocialMember(sub);
+            // 인증 처리하기
+            AuthMemberDTO authMemberDTO = new AuthMemberDTO(
+                    member.getLoginId()
+                    , member.getPassword()
+                    , member.getPath()
+                    , member.getRoleSet().stream().map(role -> new SimpleGrantedAuthority("ROLE_"+ role.name())).collect(Collectors.toList())
+                    , oAuth2User.getAttributes());
 
-        authMemberDTO.setName(member.getName());
+            authMemberDTO.setName(member.getName());
+            return authMemberDTO;
+        } else {
+            Member member = result.get();
+            return new AuthMemberDTO(
+                    member.getLoginId()
+                    , member.getPassword()
+                    , member.getPath()
+                    , member.getRoleSet().stream().map(role -> new SimpleGrantedAuthority("ROLE_"+ role.name())).collect(Collectors.toList())
+                    , oAuth2User.getAttributes());
+        }
 
-        return authMemberDTO;
 
     }
 
-    private Member saveSocialMember(String loginId) {
-        // 기존에 동일한 이메일로 가입한 회원이 있는 경우에는 그대로 조회만 한다.
-        Optional<Member> result = memberRepository.findByLoginId(loginId, true);
+    private Member saveSocialMember(String sub) {
+        // 기존에 가입한 적이 있는 경우에는 그대로 조회만 한다.
+        Optional<Member> result = memberRepository.findByLoginId("Google-"+sub,"google");
 
-        if(result.isPresent()) {
-            return result.get();
+
+        if(result.isPresent()) { // 기존에 가입한 적이 있는 경우
+            return result.get(); // 조회만 함
         }
 
-        // 가입한 정보가 없다면 회원 추가 패스워드는 1111 이름은 그냥 이메일 주소로
+        // 가입한 정보가 없다면 from=google, loginId=Google-sub, password=@@GOOGLE@@
         Member member = Member.builder()
-                .loginId(loginId)
-                .password(passwordEncoder.encode("1111"))
-//                .fromSocial(true)
+                .loginId("Google-"+sub)
+                .password(passwordEncoder.encode("@@GOOGLE@@"))
+                .path("google")
                 .build();
-        member.addMemberRole(MemberRole.STUDENT); // 일단 학생으로 처리
+
+        member.addMemberRole(MemberRole.MEMBER);
         memberRepository.save(member);
 
         return member;

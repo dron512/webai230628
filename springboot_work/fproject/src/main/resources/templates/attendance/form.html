@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<th:block th:replace="~{/layout/basic::setContent(~{this::content})}">
+    <th:block th:fragment="content">
+        <style>
+            table {
+                border-collapse: collapse;
+                border: 1px solid #333333;
+            }
+            th, td {
+                text-align: center;
+                cursor: pointer;
+                border: 1px solid #333333;
+            }
+            td{
+                width:30px;
+            }
+            .form-row {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 600px; /* 가로 길이를 조정 */
+                margin: 0 auto; /* 중앙 정렬 */
+            }
+            .datepicker-input {
+                flex: 1;
+                margin-left: 5px;
+                margin-right: 5px;
+            }
+            .datepicker-input input {
+                width: 100%;
+                border: 0px;
+            }
+
+            /*.btn-submit {*/
+            /*    background-color: #ff00d5;*/
+            /*    border: none;*/
+            /*    color: #ffffff;*/
+            /*    padding: 5px 15px;*/
+            /*    cursor: pointer;*/
+            /*    border-radius: 3px;*/
+            /*}*/
+
+        </style>
+
+        <div class="search_reserve mt_20">
+            <form id="combinedForm" method="get" th:action="@{/attendance/form}">
+                <div class="form-row">
+                    <span class="space">[별표 제34호 서식] 직업교육훈련 출석부</span>
+                    <input type="hidden" name="mode" value="search"/>
+                    <span class="reserve_calrendar">
+                        <input type="text" id="schMt" name="schMt" value="출석부" style="border:0px;">
+                    </span>
+                </div>
+                <div class="form-row">
+                    <label for="schDt" style="margin-bottom: 0rem;">훈련과정 </label> <!-- 추가된 부분 -->
+                    <select name="schDt" id="schDt" class="style_select w50">
+                        <option value="01">AI·빅데이터융합 웹개발자 과정</option>
+                        <option value="02">어뜩하냐 과정</option>
+                        <option value="03">막막이... 과정</option>
+                    </select>
+                    <div class="datepicker-input">
+                        <label>From</label>
+                        <input type="date" id="campgZoneCd1" name="campgZoneCd1" th:value="${campgZoneCd1}"/>
+                    </div>
+                    <div class="datepicker-input">
+                        <label>To</label>
+                        <input type="date" id="campgZoneCd2" name="campgZoneCd2" th:value="${campgZoneCd2}"/>
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="조회"> <!-- 변경된 부분 -->
+                </div>
+            </form>
+        </div>
+        <form method="post" action="/form">
+            <input type="hidden" name="campgZoneCd1" readonly th:value="${campgZoneCd1}"/>
+            <input type="hidden" name="campgZoneCd2" readonly th:value="${campgZoneCd2}"/>
+            <table border="1">
+                <tbody>
+                <tr>
+                    <th></th>
+                    <th>날짜</th>
+                    <th th:each="day : ${dataList}" colspan="7">[[${day}]]</th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th>결재</th>
+                    <th th:each="i : ${#numbers.sequence(1,5)}" colspan="7"></th>
+                </tr>
+                <tr>
+                    <th>번호</th>
+                    <th>성명</th>
+                    <th th:each="i : ${#numbers.sequence(1,7)}">
+                        <span th:text="${i}"></span>
+                    </th>
+                    <th th:each="i : ${#numbers.sequence(1,7)}">
+                        <span th:text="${i}"></span>
+                    </th>
+                    <th th:each="i : ${#numbers.sequence(1,7)}">
+                        <span th:text="${i}"></span>
+                    </th>
+                    <th th:each="i : ${#numbers.sequence(1,7)}">
+                        <span th:text="${i}"></span>
+                    </th>
+                    <th th:each="i : ${#numbers.sequence(1,7)}">
+                        <span th:text="${i}"></span>
+                    </th>
+                </tr>
+                <tr th:each="row: ${list}">
+                    <th th:text="${row.id}">Row</th>
+                    <td>
+                        <input type="text" name="name" style="width: 100px; border: 0" id="name" th:value="${row.name}"
+                               readonly>
+                    </td>
+                    <td th:each="col: ${#numbers.sequence(0,34)}">
+                        <input type="text" th:name="|${row.name+'-'+row.memberIdx+'-'+col%7}|"
+                               style="width: 30px; border: 0" class="cperiod" th:value="O" onclick="toggleValue(this)"
+                               readonly>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <input type="button" form="combinedForm" class="btn btn-primary m-3" id="combinedSubmit" value="저장">
+        </form>
+
+        <script>
+            const day1 = '[[${dataList[0]}]]'.split(" ")[0];
+            const day2 = '[[${dataList[1]}]]'.split(" ")[0];
+            const day3 = '[[${dataList[2]}]]'.split(" ")[0];
+            const day4 = '[[${dataList[3]}]]'.split(" ")[0];
+            const day5 = '[[${dataList[4]}]]'.split(" ")[0];
+
+            function toggleValue(cell) {
+                if (cell.value === "O") {
+                    cell.value = "X";
+                } else if (cell.value === "X") {
+                    cell.value = "O";
+                }
+            }
+
+            $(document).ready(function () {
+                // datepicker 입력을 클릭하면 옵션이 표시되지 않도록 방지
+                $('#combinedSubmit').on('click', function () {
+                    $(this).attr('disabled','disabled');
+                    $(this).val('저장중...');
+                    // 두 번째 폼의 데이터 수집 (테이블 내 입력 데이터)
+                    var formData2 = $('.cperiod').map((idx, item) => {
+                        idx = idx % 35;
+                        var regDate = "";
+                        if (-1 < idx && idx < 7)
+                            regDate = day1;
+                        if (6 < idx && idx < 14)
+                            regDate = day2;
+                        if (13 < idx && idx < 21)
+                            regDate = day3;
+                        if (20 < idx && idx < 28)
+                            regDate = day4;
+                        if (27 < idx && idx < 35)
+                            regDate = day5;
+                        return {
+                            member_idx: item.name.split("-")[1],
+                            name: item.name.split("-")[0],
+                            cperiod: item.name.split("-")[2],
+                            regDate,
+                            status: item.value
+                        };
+                    }).get();
+
+                    $.ajax({
+                        url: '/attendance/form'
+                        , data: {
+                            "list":JSON.stringify(formData2)
+                        }
+                        , type: 'POST'
+                        , dataType: 'json'
+                        , beforeSend: function (xhr) { // csrf 처리
+                            xhr.setRequestHeader($("meta[name='_csrf_header']").attr("content"), $("meta[name='_csrf']").attr("content"))
+                        }
+                        , success: function (result) {
+                            console.log(result);
+                            $('#combinedSubmit').removeAttr('disabled');
+                            // $('#combinedSubmit').addClass('active');
+                            $('#combinedSubmit').val('저장');
+                        }, error: function (jqXHR, textStatus, errorThrown) {
+                            console.log(textStatus);
+                        }
+                    }); // $.ajax
+
+                    // 두 폼의 데이터 합치기
+                    // var combinedData = formData1.concat(formData2);
+
+                    // 폼 데이터 전송 및 결과 처리 함수 호출
+                    // submitForm(combinedData);
+                });
+            });
+        </script>
+
+    </th:block>
+</th:block>
+

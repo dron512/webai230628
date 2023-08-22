@@ -8,6 +8,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.spring.comm.LoginUtil;
@@ -16,8 +22,11 @@ import com.spring.comm.Validate;
 import com.spring.dao.MemberDao;
 import com.spring.dto.MemberDto;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
-public class MemberService {
+@Slf4j
+public class MemberService implements UserDetailsService{
 	@Autowired
 	private MemberDao dao;
 
@@ -32,6 +41,7 @@ public class MemberService {
 
 	// 아이디 존재 여부
 	public boolean ExistId(String loginId) {
+		System.out.println("일로오나");
 		MemberDto res = dao.loginCheck(loginId);
 		if (res == null) { // 사용가능한 아이디면 true
 			return true;
@@ -193,6 +203,45 @@ public class MemberService {
 		session.invalidate();
 
 		return "redirect:/login";
+	}
+	
+	@Autowired
+	@Qualifier("bcryptPasswordEncoder")
+	PasswordEncoder bcryptPasswordEncoder;
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//		String id = dto.getMember_loginId();
+//		String pw = dto.getMember_password();
+
+		// 유효성 검사
+//		if (validate.isEmpty(id) | validate.isEmpty(pw)) {
+//			message.alert(response, "alert('아이디와 비밀번호를 입력해주세요.');history.back();");
+//		}
+//
+//		// 아이디가 존재하는지 확인
+//		MemberDto res = dao.loginCheck(id);
+//
+//		if (res == null) { // 만약 존재하지 않는 아이디이면
+//			message.alert(response, "alert('존재하지 않는 아이디입니다.');history.back();"); // 이전 단계로 이동
+//		} else { // 아이디가 존재한다면 비밀번호를 비교
+//			if (!pw.equals(res.getMember_password())) { // 만약 비밀번호가 틀렸다면
+//				message.alert(response, "alert('아이디와 비밀번호를 확인해주세요.');history.back();");
+//			}
+//		}
+
+		System.out.println(dao);
+		System.out.println(bcryptPasswordEncoder);
+
+		MemberDto res = dao.loginCheck(username);
+//
+//		log.info(res.toString());
+		
+		return User.builder()
+                .username("1234")
+                .password(bcryptPasswordEncoder.encode("1234"))
+                .roles("MEMBER")
+                .build();
 	}
 
 }

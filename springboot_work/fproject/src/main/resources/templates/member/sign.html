@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ko-kr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>회원가입(학생/선생님)</title>
+    <head th:replace="~{/frags/import::importfrag}"></head>
+</head>
+<body>
+<div class="container">
+    <div class="container-fluid justify-content-center">
+        <button class="btn btn-primary" onclick="gotoStudentJoinForm()">학생</button>
+        <button class="btn btn-primary" onclick="gotoTeacherJoinForm()">선생님</button>
+    </div>
+</div>
+
+
+
+<script th:inline="javascript">
+    let path = [[${memberSignUpDTO.path}]];
+    function gotoStudentJoinForm() {
+        // 학생 join form
+        location.replace("/member/signup?path="+path+"&type=student")
+    }
+
+    function gotoTeacherJoinForm() {
+        // 선생님 join form
+        location.replace("/member/signup?path="+path+"&type=teacher")
+    }
+
+</script>
+</body>
+</html>

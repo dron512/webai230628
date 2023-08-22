@@ -1,5 +1,6 @@
 *.log
 *.tmp
+*.zip
 /python_work/myvenv
 *.pickle
 /python_work/pythonProject/pymlrev2-main
