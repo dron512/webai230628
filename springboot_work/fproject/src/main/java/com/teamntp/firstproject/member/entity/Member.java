@@ -2,6 +2,7 @@ package com.teamntp.firstproject.member.entity;
 
 import com.teamntp.firstproject.attendance.entity.Attendance;
 import com.teamntp.firstproject.common.entity.BaseEntity;
+import com.teamntp.firstproject.course.entity.Course;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -66,4 +67,17 @@ public class Member extends BaseEntity {
     @OneToMany
     @JoinColumn(name = "memberIdx")
     private final List<Attendance> list = new ArrayList<>();
+
+    @OneToMany
+    @JoinColumn(name = "courseIdx")
+    private final List<Course> courses = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+            name="teacher_student",
+            joinColumns = @JoinColumn(name = "studnetIdx"),
+            inverseJoinColumns = @JoinColumn(name = "teacherIdx")
+    )
+    private List<Member> tsList = new ArrayList<>();
+
 }
